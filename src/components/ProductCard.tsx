@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { useCart } from "@/hooks/use-cart";
 
 interface ProductCardProps {
   id: string;
@@ -16,6 +17,12 @@ interface ProductCardProps {
 
 const ProductCard = ({ id, name, price, image, category, portable, quiet }: ProductCardProps) => {
   const navigate = useNavigate();
+  const { addItem } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addItem({ id, name, price, image, category });
+  };
   
   return (
     <Card 
@@ -51,10 +58,7 @@ const ProductCard = ({ id, name, price, image, category, portable, quiet }: Prod
           <Button 
             size="sm" 
             className="gap-2"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(`/product/${id}`);
-            }}
+            onClick={handleAddToCart}
           >
             <ShoppingCart className="h-4 w-4" />
             Add
