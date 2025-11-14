@@ -6,6 +6,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import productTreadmill from "@/assets/product-treadmill.jpg";
 import productDumbbells from "@/assets/product-dumbbells.jpg";
 import productMassageGun from "@/assets/product-massage-gun.jpg";
+import productYogaMat from "@/assets/product-yoga-mat.jpg";
+import productResistanceBands from "@/assets/product-resistance-bands.jpg";
+import productFoamRoller from "@/assets/product-foam-roller.jpg";
+import productKettlebell from "@/assets/product-kettlebell.jpg";
+import productPullupBar from "@/assets/product-pullup-bar.jpg";
+import productExerciseBike from "@/assets/product-exercise-bike.jpg";
+import productFitnessTracker from "@/assets/product-fitness-tracker.jpg";
+import productJumpRope from "@/assets/product-jump-rope.jpg";
 
 const products = [
   {
@@ -36,24 +44,72 @@ const products = [
   },
   {
     id: "4",
-    name: "Compact Folding Treadmill Pro",
-    price: 799,
-    image: productTreadmill,
-    category: "Cardio",
+    name: "Premium Yoga Mat",
+    price: 79,
+    image: productYogaMat,
+    category: "Recovery",
     portable: true,
-    quiet: true,
   },
   {
     id: "5",
-    name: "Premium Dumbbell Set",
-    price: 399,
-    image: productDumbbells,
+    name: "Resistance Band Set",
+    price: 49,
+    image: productResistanceBands,
     category: "Strength",
     portable: true,
   },
   {
     id: "6",
-    name: "Elite Massage Gun",
+    name: "Textured Foam Roller",
+    price: 39,
+    image: productFoamRoller,
+    category: "Recovery",
+    portable: true,
+  },
+  {
+    id: "7",
+    name: "Adjustable Kettlebell",
+    price: 179,
+    image: productKettlebell,
+    category: "Strength",
+    portable: true,
+  },
+  {
+    id: "8",
+    name: "Doorway Pull-Up Bar",
+    price: 59,
+    image: productPullupBar,
+    category: "Strength",
+    portable: true,
+  },
+  {
+    id: "9",
+    name: "Compact Exercise Bike",
+    price: 449,
+    image: productExerciseBike,
+    category: "Cardio",
+    portable: true,
+    quiet: true,
+  },
+  {
+    id: "10",
+    name: "Fitness Tracker Watch",
+    price: 129,
+    image: productFitnessTracker,
+    category: "Accessories",
+    portable: true,
+  },
+  {
+    id: "11",
+    name: "Speed Jump Rope",
+    price: 29,
+    image: productJumpRope,
+    category: "Cardio",
+    portable: true,
+  },
+  {
+    id: "12",
+    name: "Elite Massage Gun Pro",
     price: 199,
     image: productMassageGun,
     category: "Recovery",

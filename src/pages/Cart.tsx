@@ -1,9 +1,12 @@
 import { Minus, Plus, Trash2, CreditCard } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import productDumbbells from "@/assets/product-dumbbells.jpg";
 
 const Cart = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
       <div className="container mx-auto px-4 py-8">
@@ -66,11 +69,20 @@ const Cart = () => {
                   <span className="font-bold text-xl text-primary">$299.00</span>
                 </div>
               </div>
-              <Button size="lg" className="w-full gap-2 mb-3">
+              <Button 
+                size="lg" 
+                className="w-full gap-2 mb-3"
+                onClick={() => navigate("/checkout")}
+              >
                 <CreditCard className="h-5 w-5" />
                 Checkout
               </Button>
-              <Button size="lg" variant="outline" className="w-full">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="w-full"
+                onClick={() => navigate("/shop")}
+              >
                 Continue Shopping
               </Button>
               <div className="mt-6 space-y-2 text-xs text-muted-foreground">
