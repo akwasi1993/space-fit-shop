@@ -29,12 +29,11 @@ export default function BackgroundCustomizer() {
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
-          size="icon"
-          className="fixed bottom-20 md:bottom-6 right-6 z-50 shadow-elevated rounded-full h-14 w-14"
+          className="fixed bottom-24 md:bottom-6 right-6 z-50 shadow-elevated bg-primary text-primary-foreground hover:bg-primary/90 gap-2 h-auto py-3 px-4 md:px-6 rounded-full font-semibold animate-pulse hover:animate-none"
           aria-label="Customize background"
         >
           <Palette className="h-5 w-5" />
+          <span className="hidden md:inline">Change Background</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 p-6" align="end">
