@@ -4,7 +4,7 @@ import { ShoppingCart, Heart, Star, Check, Truck, Shield, ArrowLeft } from "luci
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { toast } from "sonner";
+import { useCart } from "@/hooks/use-cart";
 import productTreadmill from "@/assets/product-treadmill.jpg";
 import productDumbbells from "@/assets/product-dumbbells.jpg";
 import productMassageGun from "@/assets/product-massage-gun.jpg";
@@ -170,6 +170,7 @@ const products = [
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   
@@ -187,8 +188,16 @@ const ProductDetail = () => {
   }
 
   const handleAddToCart = () => {
-    toast.success(`Added ${quantity} ${product.name} to cart!`);
-    setTimeout(() => navigate("/cart"), 1000);
+    if (product) {
+      addItem({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        category: product.category,
+      }, quantity);
+      setTimeout(() => navigate("/cart"), 1000);
+    }
   };
 
   return (
