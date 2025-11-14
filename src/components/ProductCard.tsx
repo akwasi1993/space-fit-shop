@@ -1,4 +1,5 @@
 import { Heart, ShoppingCart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -13,22 +14,30 @@ interface ProductCardProps {
   quiet?: boolean;
 }
 
-const ProductCard = ({ name, price, image, category, portable, quiet }: ProductCardProps) => {
+const ProductCard = ({ id, name, price, image, category, portable, quiet }: ProductCardProps) => {
+  const navigate = useNavigate();
+  
   return (
-    <Card className="group overflow-hidden border-border hover:shadow-elevated transition-smooth cursor-pointer">
+    <Card 
+      className="group overflow-hidden border-border hover:shadow-elevated transition-smooth cursor-pointer"
+      onClick={() => navigate(`/product/${id}`)}
+    >
       <div className="relative aspect-square overflow-hidden bg-secondary">
         <img
           src={image}
           alt={name}
           className="object-cover w-full h-full group-hover:scale-105 transition-smooth"
         />
-        <Button
-          size="icon"
-          variant="ghost"
-          className="absolute top-3 right-3 bg-card/80 backdrop-blur hover:bg-card"
-        >
-          <Heart className="h-4 w-4" />
-        </Button>
+          <Button
+            size="icon"
+            variant="ghost"
+            className="absolute top-3 right-3 bg-card/80 backdrop-blur hover:bg-card"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <Heart className="h-4 w-4" />
+          </Button>
         <div className="absolute bottom-3 left-3 flex gap-2">
           {portable && <Badge variant="secondary" className="text-xs">Portable</Badge>}
           {quiet && <Badge variant="secondary" className="text-xs">Quiet</Badge>}
@@ -39,7 +48,14 @@ const ProductCard = ({ name, price, image, category, portable, quiet }: ProductC
         <h3 className="font-semibold text-base mb-2 line-clamp-2">{name}</h3>
         <div className="flex items-center justify-between">
           <span className="text-lg font-bold text-primary">${price}</span>
-          <Button size="sm" className="gap-2">
+          <Button 
+            size="sm" 
+            className="gap-2"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/product/${id}`);
+            }}
+          >
             <ShoppingCart className="h-4 w-4" />
             Add
           </Button>

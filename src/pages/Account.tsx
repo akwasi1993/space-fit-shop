@@ -1,8 +1,11 @@
 import { User, Package, Heart, Settings } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const Account = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
       <div className="container mx-auto px-4 py-8">
@@ -55,7 +58,11 @@ const Account = () => {
             <p className="mb-6 opacity-90">
               Create an account to track orders and save your favorites
             </p>
-            <Button size="lg" variant="secondary">
+            <Button 
+              size="lg" 
+              variant="secondary"
+              onClick={() => navigate("/auth")}
+            >
               Sign In / Create Account
             </Button>
           </Card>
