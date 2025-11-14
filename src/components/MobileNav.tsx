@@ -2,9 +2,11 @@ import { Home, Search, ShoppingCart, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "@/hooks/use-cart";
 import { cn } from "@/lib/utils";
+import BackgroundCustomizer from "./BackgroundCustomizer";
 
 const MobileNav = () => {
   const { totalItems } = useCart();
+  const location = useLocation();
 
   const navItems = [
     { icon: Home, label: "Shop", path: "/" },
@@ -16,6 +18,9 @@ const MobileNav = () => {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border md:hidden">
       <div className="flex items-center justify-around h-16">
+        <div className="flex flex-col items-center justify-center flex-1 h-full">
+          <BackgroundCustomizer />
+        </div>
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname === item.path;
