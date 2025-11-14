@@ -7,7 +7,6 @@ import { CartProvider } from "./hooks/use-cart";
 import { BackgroundProvider } from "./hooks/use-background";
 import Header from "./components/Header";
 import MobileNav from "./components/MobileNav";
-import BackgroundCustomizer from "./components/BackgroundCustomizer";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -45,11 +44,10 @@ const App = () => (
                   <Route path="/account" element={<Account />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              <MobileNav />
-              <BackgroundCustomizer />
-            </div>
+              </Routes>
+            </main>
+            <MobileNav />
+          </div>
           </BrowserRouter>
         </CartProvider>
       </BackgroundProvider>

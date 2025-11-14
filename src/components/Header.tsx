@@ -2,6 +2,7 @@ import { Menu, Search, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useCart } from "@/hooks/use-cart";
+import BackgroundCustomizer from "./BackgroundCustomizer";
 
 const Header = () => {
   const { totalItems } = useCart();
@@ -30,6 +31,7 @@ const Header = () => {
             </nav>
           </div>
           <div className="flex items-center gap-3">
+            <BackgroundCustomizer />
             <Link to="/search">
               <Button variant="ghost" size="icon" className="hidden md:flex">
                 <Search className="h-5 w-5" />
