@@ -1,4 +1,4 @@
-import { Home, Search, ShoppingCart, User } from "lucide-react";
+import { Home, Search, ShoppingCart, User, Upload } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "@/hooks/use-cart";
 import { cn } from "@/lib/utils";
@@ -9,7 +9,7 @@ const MobileNav = () => {
 
   const navItems = [
     { icon: Home, label: "Shop", path: "/" },
-    { icon: Search, label: "Search", path: "/search" },
+    { icon: Upload, label: "Upload", path: "/upload" },
     { icon: ShoppingCart, label: "Cart", path: "/cart", badge: totalItems },
     { icon: User, label: "Account", path: "/account" },
   ];
