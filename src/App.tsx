@@ -12,6 +12,7 @@ import ProductDetail from "./pages/ProductDetail";
 import Programs from "./pages/Programs";
 import Inspiration from "./pages/Inspiration";
 import Upload from "./pages/Upload";
+import Gallery from "./pages/Gallery";
 import Search from "./pages/Search";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -38,6 +39,7 @@ const App = () => (
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/inspiration" element={<Inspiration />} />
                 <Route path="/upload" element={<Upload />} />
+                <Route path="/gallery" element={<Gallery />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />

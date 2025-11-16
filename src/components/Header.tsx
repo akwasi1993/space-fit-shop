@@ -27,6 +27,9 @@ const Header = () => {
               <Link to="/upload" className="text-sm font-medium text-foreground hover:text-primary transition-smooth">
                 Upload
               </Link>
+              <Link to="/gallery" className="text-sm font-medium text-foreground hover:text-primary transition-smooth">
+                Gallery
+              </Link>
             </nav>
           </div>
           <div className="flex items-center gap-3">
