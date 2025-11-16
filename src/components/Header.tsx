@@ -24,8 +24,8 @@ const Header = () => {
               <Link to="/inspiration" className="text-sm font-medium text-foreground hover:text-primary transition-smooth">
                 Inspiration
               </Link>
-              <Link to="/deals" className="text-sm font-medium text-foreground hover:text-primary transition-smooth">
-                Deals
+              <Link to="/upload" className="text-sm font-medium text-foreground hover:text-primary transition-smooth">
+                Upload
               </Link>
             </nav>
           </div>

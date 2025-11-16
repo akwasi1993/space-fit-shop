@@ -11,6 +11,7 @@ import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Programs from "./pages/Programs";
 import Inspiration from "./pages/Inspiration";
+import Upload from "./pages/Upload";
 import Search from "./pages/Search";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -36,6 +37,7 @@ const App = () => (
                 <Route path="/product/:id" element={<ProductDetail />} />
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/inspiration" element={<Inspiration />} />
+                <Route path="/upload" element={<Upload />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />

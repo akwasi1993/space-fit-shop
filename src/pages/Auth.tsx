@@ -7,33 +7,58 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Auth = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [signInEmail, setSignInEmail] = useState("");
+  const [signInPassword, setSignInPassword] = useState("");
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [signUpPassword, setSignUpPassword] = useState("");
+  const [signUpName, setSignUpName] = useState("");
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: signInEmail,
+      password: signInPassword,
+    });
+
+    setIsLoading(false);
+
+    if (error) {
+      toast.error(error.message);
+    } else {
       toast.success("Signed in successfully!");
       navigate("/account");
-    }, 1500);
+    }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
+    const { data, error } = await supabase.auth.signUp({
+      email: signUpEmail,
+      password: signUpPassword,
+      options: {
+        data: {
+          name: signUpName,
+        }
+      }
+    });
+
+    setIsLoading(false);
+
+    if (error) {
+      toast.error(error.message);
+    } else {
       toast.success("Account created successfully!");
       navigate("/account");
-    }, 1500);
+    }
   };
 
   return (
@@ -72,6 +97,8 @@ const Auth = () => {
                         type="email"
                         placeholder="john@example.com"
                         className="pl-10"
+                        value={signInEmail}
+                        onChange={(e) => setSignInEmail(e.target.value)}
                         required
                       />
                     </div>
@@ -85,6 +112,8 @@ const Auth = () => {
                         type="password"
                         placeholder="••••••••"
                         className="pl-10"
+                        value={signInPassword}
+                        onChange={(e) => setSignInPassword(e.target.value)}
                         required
                       />
                     </div>
@@ -115,6 +144,8 @@ const Auth = () => {
                         type="text"
                         placeholder="John Doe"
                         className="pl-10"
+                        value={signUpName}
+                        onChange={(e) => setSignUpName(e.target.value)}
                         required
                       />
                     </div>
@@ -128,6 +159,8 @@ const Auth = () => {
                         type="email"
                         placeholder="john@example.com"
                         className="pl-10"
+                        value={signUpEmail}
+                        onChange={(e) => setSignUpEmail(e.target.value)}
                         required
                       />
                     </div>
@@ -141,6 +174,8 @@ const Auth = () => {
                         type="password"
                         placeholder="••••••••"
                         className="pl-10"
+                        value={signUpPassword}
+                        onChange={(e) => setSignUpPassword(e.target.value)}
                         required
                         minLength={8}
                       />
