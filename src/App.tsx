@@ -12,6 +12,9 @@ import ProductDetail from "./pages/ProductDetail";
 import Inspiration from "./pages/Inspiration";
 import Upload from "./pages/Upload";
 import Gallery from "./pages/Gallery";
+import Programs from "./pages/Programs";
+import ProgramDetail from "./pages/ProgramDetail";
+import ProgramForm from "./pages/ProgramForm";
 import Search from "./pages/Search";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -36,6 +39,10 @@ const App = () => (
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/product/:id" element={<ProductDetail />} />
                 <Route path="/inspiration" element={<Inspiration />} />
+                <Route path="/programs" element={<Programs />} />
+                <Route path="/programs/new" element={<ProgramForm />} />
+                <Route path="/programs/:slug" element={<ProgramDetail />} />
+                <Route path="/programs/:slug/edit" element={<ProgramForm />} />
                 <Route path="/upload" element={<Upload />} />
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/search" element={<Search />} />
