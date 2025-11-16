@@ -2,6 +2,7 @@ import { Play, Clock, Dumbbell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import programsHero from "@/assets/programs-hero.png";
 
 const programs = [
   {
@@ -26,44 +27,77 @@ const programs = [
     duration: "30 min",
     workouts: 10,
     level: "Intermediate",
-    description: "No jumping, no noise - perfect for apartment living",
+    description: "No jumping, low noise — ideal for apartment living",
   },
 ];
 
 const Programs = () => {
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold mb-3">Fitness Programs</h1>
-          <p className="text-muted-foreground text-lg">
-            Small-space workouts designed for your equipment
-          </p>
+      {/* Hero Band */}
+      <div className="bg-gradient-programs relative overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
+          <div className="grid md:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
+            {/* Left: Heading */}
+            <div className="space-y-3">
+              <h1 className="text-[34px] md:text-[38px] font-bold text-white leading-tight">
+                Fitness Programs
+              </h1>
+              <p className="text-white/90 text-base md:text-lg leading-relaxed">
+                Small-space workouts designed for your equipment
+              </p>
+            </div>
+            
+            {/* Right: Image */}
+            <div className="flex justify-center md:justify-end">
+              <img
+                src={programsHero}
+                alt="Fitness Programs"
+                className="w-full max-w-md h-auto object-contain rounded-2xl shadow-elevated"
+              />
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div className="container mx-auto px-4 md:px-6 py-12">
+        {/* Program Cards Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 max-w-6xl mx-auto">
           {programs.map((program) => (
-            <Card key={program.id} className="overflow-hidden border-border hover:shadow-elevated transition-smooth">
-              <div className="bg-gradient-primary p-8 text-primary-foreground">
-                <Badge variant="secondary" className="mb-3">
+            <Card 
+              key={program.id} 
+              className="overflow-hidden border-border hover:shadow-elevated hover:-translate-y-0.5 transition-smooth rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              tabIndex={0}
+            >
+              {/* Gradient Header */}
+              <div className="bg-gradient-programs p-5 text-white">
+                <Badge variant="secondary" className="mb-2.5 bg-white/20 text-white border-0 hover:bg-white/30">
                   {program.level}
                 </Badge>
-                <h3 className="text-xl font-bold mb-2">{program.title}</h3>
+                <h3 className="text-xl font-bold">{program.title}</h3>
               </div>
-              <div className="p-6">
-                <p className="text-muted-foreground mb-6">{program.description}</p>
-                <div className="flex gap-4 mb-6 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-primary" />
+              
+              {/* Card Body */}
+              <div className="p-5 space-y-5">
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {program.description}
+                </p>
+                
+                {/* Meta Row */}
+                <div className="flex items-center gap-4 text-sm text-foreground">
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="h-4 w-4 text-primary" aria-hidden="true" />
                     <span>{program.duration}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Dumbbell className="h-4 w-4 text-primary" />
+                  <div className="flex items-center gap-1.5">
+                    <Dumbbell className="h-4 w-4 text-primary" aria-hidden="true" />
                     <span>{program.workouts} workouts</span>
                   </div>
                 </div>
-                <Button className="w-full gap-2">
-                  <Play className="h-4 w-4" />
+                
+                {/* CTA Button */}
+                <Button className="w-full gap-2" aria-label={`Start ${program.title}`}>
+                  <Play className="h-4 w-4" aria-hidden="true" />
                   Start Program
                 </Button>
               </div>
@@ -71,19 +105,24 @@ const Programs = () => {
           ))}
         </div>
 
-        <Card className="bg-gradient-hero text-primary-foreground p-8 md:p-12">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+        {/* Promo CTA Band */}
+        <div className="bg-gradient-programs text-white p-8 md:p-12 rounded-2xl shadow-elevated max-w-3xl mx-auto">
+          <div className="text-center space-y-4">
+            <h2 className="text-[26px] md:text-[30px] font-bold leading-tight">
               Free 20-Minute Starter Workout
             </h2>
-            <p className="mb-6 opacity-90">
-              Try our most popular quick workout - no equipment needed
+            <p className="text-white/90 text-base leading-relaxed">
+              Try our most popular quick workout — no equipment needed
             </p>
-            <Button size="lg" variant="secondary">
+            <Button 
+              size="lg" 
+              variant="secondary"
+              className="mt-2"
+            >
               Watch Free Workout
             </Button>
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   );
