@@ -2,6 +2,7 @@ import { Menu, Search, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useCart } from "@/hooks/use-cart";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const Header = () => {
   const { totalItems } = useCart();
@@ -38,6 +39,7 @@ const Header = () => {
                 <Search className="h-5 w-5" />
               </Button>
             </Link>
+            <ThemeSwitcher />
             <Link to="/cart">
               <Button variant="ghost" size="icon" className="relative">
                 <ShoppingCart className="h-5 w-5" />
