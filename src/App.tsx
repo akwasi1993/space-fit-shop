@@ -9,7 +9,6 @@ import MobileNav from "./components/MobileNav";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
-import Programs from "./pages/Programs";
 import Inspiration from "./pages/Inspiration";
 import Upload from "./pages/Upload";
 import Gallery from "./pages/Gallery";
@@ -36,7 +35,6 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/product/:id" element={<ProductDetail />} />
-                <Route path="/programs" element={<Programs />} />
                 <Route path="/inspiration" element={<Inspiration />} />
                 <Route path="/upload" element={<Upload />} />
                 <Route path="/gallery" element={<Gallery />} />
