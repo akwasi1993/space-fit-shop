@@ -1,5 +1,9 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/use-auth";
 import galleryApartment from "@/assets/gallery-apartment-gym.jpg";
 import galleryGarage from "@/assets/gallery-garage-gym.jpg";
 import galleryBasement from "@/assets/gallery-basement-gym.jpg";
@@ -19,6 +23,7 @@ const inspirations = [
     image: galleryApartment,
     title: "Compact Apartment Home Gym",
     tags: ["Apartment", "Minimal Space"],
+    category: "Apartment",
     author: "Sarah M.",
   },
   {
@@ -26,6 +31,7 @@ const inspirations = [
     image: galleryGarage,
     title: "Complete Garage Conversion",
     tags: ["Garage", "Full Setup"],
+    category: "Garage",
     author: "Mike D.",
   },
   {
@@ -33,6 +39,7 @@ const inspirations = [
     image: galleryBasement,
     title: "Finished Basement Workout Room",
     tags: ["Basement", "Multi-Purpose"],
+    category: "Basement",
     author: "Jessica T.",
   },
   {
@@ -40,6 +47,7 @@ const inspirations = [
     image: galleryBedroom,
     title: "Spare Bedroom Transformation",
     tags: ["Bedroom", "Beginner Friendly"],
+    category: "Spare Bedroom",
     author: "Alex K.",
   },
   {
@@ -47,6 +55,7 @@ const inspirations = [
     image: galleryLuxury,
     title: "High-End Home Fitness Studio",
     tags: ["Luxury", "Premium Setup"],
+    category: "Full-Room Build",
     author: "David R.",
   },
   {
@@ -54,6 +63,7 @@ const inspirations = [
     image: galleryCardio,
     title: "Living Room Cardio Corner",
     tags: ["Living Space", "Cardio Focus"],
+    category: "Cardio Corner",
     author: "Emma L.",
   },
   {
@@ -61,6 +71,7 @@ const inspirations = [
     image: galleryGarageModern,
     title: "Modern Garage Gym Build",
     tags: ["Garage", "Strength Training"],
+    category: "Garage",
     author: "Chris P.",
   },
   {
@@ -68,6 +79,7 @@ const inspirations = [
     image: galleryOffice,
     title: "Home Office & Gym Combo",
     tags: ["Office", "Multi-Purpose"],
+    category: "Small-Space Gym",
     author: "Taylor S.",
   },
   {
@@ -75,6 +87,7 @@ const inspirations = [
     image: gallerySunroom,
     title: "Bright Sunroom Fitness Space",
     tags: ["Sunroom", "Yoga & Cardio"],
+    category: "Sunroom",
     author: "Rachel W.",
   },
   {
@@ -82,6 +95,7 @@ const inspirations = [
     image: galleryAttic,
     title: "Cozy Attic Training Studio",
     tags: ["Attic", "Functional Training"],
+    category: "Small-Space Gym",
     author: "Jordan B.",
   },
   {
@@ -89,6 +103,7 @@ const inspirations = [
     image: galleryNook,
     title: "Smart Closet Micro Gym",
     tags: ["Closet", "Ultra Compact"],
+    category: "Small-Space Gym",
     author: "Morgan F.",
   },
   {
@@ -96,23 +111,70 @@ const inspirations = [
     image: galleryLoft,
     title: "Industrial Loft Gym",
     tags: ["Loft", "Boxing & Strength"],
+    category: "Strength Room",
     author: "Casey M.",
   },
 ];
 
+const categories = [
+  "All",
+  "Garage",
+  "Sunroom",
+  "Basement",
+  "Apartment",
+  "Spare Bedroom",
+  "Full-Room Build",
+  "Small-Space Gym",
+  "Cardio Corner",
+  "Strength Room",
+];
+
 const Inspiration = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const filteredInspirations = activeFilter === "All"
+    ? inspirations
+    : inspirations.filter((item) => item.category === activeFilter);
+
+  const handleUploadClick = () => {
+    if (user) {
+      navigate("/upload");
+    } else {
+      // Store intended destination for after login
+      sessionStorage.setItem("redirectAfterLogin", "/upload");
+      navigate("/auth");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-12">
+        <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-3">Community Gallery</h1>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-lg mb-6">
             Real home gyms from our community
           </p>
+
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={activeFilter === category ? "default" : "outline"}
+                size="sm"
+                onClick={() => setActiveFilter(category)}
+                className="transition-smooth"
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {inspirations.map((item) => (
+          {filteredInspirations.map((item) => (
             <Card key={item.id} className="group overflow-hidden border-border hover:shadow-elevated transition-smooth cursor-pointer">
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
@@ -142,11 +204,17 @@ const Inspiration = () => {
               Share Your Space
             </h2>
             <p className="mb-6 opacity-90">
-              Show us your home gym setup and inspire others
+              {user 
+                ? "Show us your home gym setup and inspire others"
+                : "Log in to share your home gym with the community!"
+              }
             </p>
-            <button className="bg-primary-foreground text-primary px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-smooth">
+            <Button
+              onClick={handleUploadClick}
+              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 px-8 py-3 text-base font-semibold hover:scale-105 transition-smooth"
+            >
               Upload Photos
-            </button>
+            </Button>
           </div>
         </Card>
       </div>
