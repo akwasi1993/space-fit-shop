@@ -1,4 +1,4 @@
-import { Heart, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
@@ -35,16 +35,6 @@ const ProductCard = ({ id, name, price, image, category, portable, quiet }: Prod
           alt={name}
           className="object-cover w-full h-full group-hover:scale-105 transition-smooth"
         />
-          <Button
-            size="icon"
-            variant="ghost"
-            className="absolute top-3 right-3 bg-card/80 backdrop-blur hover:bg-card"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <Heart className="h-4 w-4" />
-          </Button>
         <div className="absolute bottom-3 left-3 flex gap-2">
           {portable && <Badge variant="secondary" className="text-xs">Portable</Badge>}
           {quiet && <Badge variant="secondary" className="text-xs">Quiet</Badge>}
