@@ -158,11 +158,23 @@ const ProgramDetail = () => {
       </div>
 
       <div className="mb-8">
-        <video
-          src={program.intro_video_url}
-          controls
-          className="w-full aspect-video rounded-lg"
-        />
+        {program.intro_video_url.includes('youtube.com') || 
+         program.intro_video_url.includes('vimeo.com') ? (
+          <div className="aspect-video rounded-lg overflow-hidden">
+            <iframe
+              src={program.intro_video_url}
+              className="w-full h-full"
+              allowFullScreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            />
+          </div>
+        ) : (
+          <video
+            src={program.intro_video_url}
+            controls
+            className="w-full aspect-video rounded-lg"
+          />
+        )}
       </div>
 
       <div className="prose prose-slate max-w-none">
