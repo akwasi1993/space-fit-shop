@@ -61,7 +61,7 @@ const Programs = () => {
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       <div className="mb-8">
-        <div className="flex justify-between items-start mb-4">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
           <div>
             <h1 className="text-4xl font-bold mb-2">Programs</h1>
             <p className="text-muted-foreground">
@@ -69,14 +69,12 @@ const Programs = () => {
               instructions.
             </p>
           </div>
-          {!authLoading && isCreator && (
-            <Link to="/programs/new">
-              <Button>
-                <Plus className="mr-2 h-4 w-4" />
-                Create Program
-              </Button>
-            </Link>
-          )}
+          <Link to="/programs/new" className="w-full md:w-auto">
+            <Button className="w-full md:w-auto">
+              <Plus className="mr-2 h-4 w-4" />
+              Add New Program
+            </Button>
+          </Link>
         </div>
 
         <ProgramFilters
