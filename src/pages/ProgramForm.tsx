@@ -192,6 +192,7 @@ const ProgramForm = () => {
         category: formData.category || null,
         tags: formData.tags ? formData.tags.split(",").map((t) => t.trim()) : [],
         created_by_user_id: user.id,
+        status: 'pending' as const, // New programs start as pending for moderation
       };
 
       if (slug) {
@@ -200,20 +201,30 @@ const ProgramForm = () => {
           .update(programData)
           .eq("slug", slug);
 
-        if (error) throw error;
-        toast.success("Program updated successfully");
+        if (error) {
+          console.error("Update error details:", error);
+          throw error;
+        }
+        toast.success("Program updated successfully and pending review");
       } else {
-        const { error } = await supabase.from("programs").insert(programData);
+        const { error, data } = await supabase.from("programs").insert(programData).select();
 
-        if (error) throw error;
-        toast.success("Program created successfully");
+        if (error) {
+          console.error("Insert error details:", error);
+          throw error;
+        }
+        console.log("Program created successfully:", data);
+        toast.success("Program submitted successfully! It will appear after review.");
       }
 
       setUploadProgress(100);
-      navigate(`/programs/${programData.slug}`);
-    } catch (error) {
+      setTimeout(() => {
+        navigate("/programs");
+      }, 1500);
+    } catch (error: any) {
       console.error("Error saving program:", error);
-      toast.error("Failed to save program");
+      const errorMessage = error?.message || "Failed to save program";
+      toast.error(`Error: ${errorMessage}`);
     } finally {
       setLoading(false);
       setUploadProgress(0);
