@@ -14,6 +14,18 @@ import productPullupBar from "@/assets/product-pullup-bar.jpg";
 import productExerciseBike from "@/assets/product-exercise-bike.jpg";
 import productFitnessTracker from "@/assets/product-fitness-tracker.jpg";
 import productJumpRope from "@/assets/product-jump-rope.jpg";
+import productYogaBlocks from "@/assets/product-yoga-blocks.jpg";
+import productAnkleWeights from "@/assets/product-ankle-weights.jpg";
+import productAbRoller from "@/assets/product-ab-roller.jpg";
+import productBalanceBoard from "@/assets/product-balance-board.jpg";
+import productPushupBars from "@/assets/product-pushup-bars.jpg";
+import productResistanceLoops from "@/assets/product-resistance-loops.jpg";
+import productWorkoutGloves from "@/assets/product-workout-gloves.jpg";
+import productWaterBottle from "@/assets/product-water-bottle.jpg";
+import productGripStrengthener from "@/assets/product-grip-strengthener.jpg";
+import productSuspensionTrainer from "@/assets/product-suspension-trainer.jpg";
+import productMedicineBall from "@/assets/product-medicine-ball.jpg";
+import productGymBag from "@/assets/product-gym-bag.jpg";
 
 const products = [
   {
@@ -115,6 +127,102 @@ const products = [
     category: "Recovery",
     portable: true,
     quiet: true,
+  },
+  {
+    id: "13",
+    name: "Yoga Block Set",
+    price: 24,
+    image: productYogaBlocks,
+    category: "Recovery",
+    portable: true,
+  },
+  {
+    id: "14",
+    name: "Adjustable Ankle Weights",
+    price: 34,
+    image: productAnkleWeights,
+    category: "Strength",
+    portable: true,
+  },
+  {
+    id: "15",
+    name: "Ab Wheel Roller",
+    price: 19,
+    image: productAbRoller,
+    category: "Strength",
+    portable: true,
+  },
+  {
+    id: "16",
+    name: "Wooden Balance Board",
+    price: 89,
+    image: productBalanceBoard,
+    category: "Strength",
+    portable: true,
+  },
+  {
+    id: "17",
+    name: "Push-Up Bars",
+    price: 29,
+    image: productPushupBars,
+    category: "Strength",
+    portable: true,
+  },
+  {
+    id: "18",
+    name: "Mini Resistance Loops",
+    price: 18,
+    image: productResistanceLoops,
+    category: "Strength",
+    portable: true,
+  },
+  {
+    id: "19",
+    name: "Training Gloves",
+    price: 24,
+    image: productWorkoutGloves,
+    category: "Accessories",
+    portable: true,
+  },
+  {
+    id: "20",
+    name: "Sports Water Bottle",
+    price: 16,
+    image: productWaterBottle,
+    category: "Accessories",
+    portable: true,
+  },
+  {
+    id: "21",
+    name: "Hand Grip Strengthener",
+    price: 12,
+    image: productGripStrengthener,
+    category: "Strength",
+    portable: true,
+  },
+  {
+    id: "22",
+    name: "Suspension Trainer",
+    price: 79,
+    image: productSuspensionTrainer,
+    category: "Strength",
+    portable: true,
+  },
+  {
+    id: "23",
+    name: "Medicine Ball",
+    price: 45,
+    image: productMedicineBall,
+    category: "Strength",
+    portable: true,
+  },
+  {
+    id: "24",
+    name: "Gym Duffel Bag",
+    price: 49,
+    image: productGymBag,
+    category: "Accessories",
+    portable: true,
   },
 ];
 
