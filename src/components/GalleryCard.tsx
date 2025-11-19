@@ -5,6 +5,7 @@ import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
+import { ReportContent } from "@/components/ReportContent";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -271,6 +272,10 @@ export const GalleryCard = ({ id, image, title, tags, author }: GalleryCardProps
             )}
           </div>
         )}
+        
+        <div className="pt-3 mt-3 border-t">
+          <ReportContent contentType="gallery" contentId={id} variant="text" />
+        </div>
       </div>
     </Card>
   );

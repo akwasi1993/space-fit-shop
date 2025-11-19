@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      content_reports: {
+        Row: {
+          content_id: string
+          content_type: string
+          created_at: string
+          details: string | null
+          id: string
+          reason: string
+          reporter_user_id: string
+        }
+        Insert: {
+          content_id: string
+          content_type: string
+          created_at?: string
+          details?: string | null
+          id?: string
+          reason: string
+          reporter_user_id: string
+        }
+        Update: {
+          content_id?: string
+          content_type?: string
+          created_at?: string
+          details?: string | null
+          id?: string
+          reason?: string
+          reporter_user_id?: string
+        }
+        Relationships: []
+      }
       gallery_comments: {
         Row: {
           comment_text: string
@@ -37,6 +67,48 @@ export type Database = {
           id?: string
           image_id?: string
           updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      gallery_images: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string
+          location_type: string | null
+          rejection_reason: string | null
+          reported_count: number
+          status: Database["public"]["Enums"]["moderation_status"]
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url: string
+          location_type?: string | null
+          rejection_reason?: string | null
+          reported_count?: number
+          status?: Database["public"]["Enums"]["moderation_status"]
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string
+          location_type?: string | null
+          rejection_reason?: string | null
+          reported_count?: number
+          status?: Database["public"]["Enums"]["moderation_status"]
+          title?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -103,8 +175,11 @@ export type Database = {
           id: string
           intro_video_url: string
           level: string
+          rejection_reason: string | null
+          reported_count: number
           short_description: string
           slug: string
+          status: Database["public"]["Enums"]["moderation_status"]
           tags: string[] | null
           title: string
           updated_at: string | null
@@ -120,8 +195,11 @@ export type Database = {
           id?: string
           intro_video_url: string
           level: string
+          rejection_reason?: string | null
+          reported_count?: number
           short_description: string
           slug: string
+          status?: Database["public"]["Enums"]["moderation_status"]
           tags?: string[] | null
           title: string
           updated_at?: string | null
@@ -137,8 +215,11 @@ export type Database = {
           id?: string
           intro_video_url?: string
           level?: string
+          rejection_reason?: string | null
+          reported_count?: number
           short_description?: string
           slug?: string
+          status?: Database["public"]["Enums"]["moderation_status"]
           tags?: string[] | null
           title?: string
           updated_at?: string | null
@@ -182,6 +263,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "creator" | "user"
+      moderation_status: "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -310,6 +392,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "creator", "user"],
+      moderation_status: ["pending", "approved", "rejected"],
     },
   },
 } as const

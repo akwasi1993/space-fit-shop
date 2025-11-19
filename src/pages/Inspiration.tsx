@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { GalleryCard } from "@/components/GalleryCard";
 import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import galleryApartment from "@/assets/gallery-apartment-gym.jpg";
 import galleryGarage from "@/assets/gallery-garage-gym.jpg";
 import galleryBasement from "@/assets/gallery-basement-gym.jpg";
@@ -135,6 +137,30 @@ const Inspiration = () => {
   const { user } = useAuth();
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+  const [userImages, setUserImages] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadGalleryImages();
+  }, []);
+
+  const loadGalleryImages = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("gallery_images")
+        .select("*")
+        .eq("status", "approved")
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      setUserImages(data || []);
+    } catch (error) {
+      console.error("Error loading gallery:", error);
+      toast.error("Failed to load gallery images");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredInspirations = selectedFilters.length === 0
     ? inspirations
