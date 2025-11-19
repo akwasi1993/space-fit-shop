@@ -22,6 +22,7 @@ import Checkout from "./pages/Checkout";
 import Account from "./pages/Account";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
+import FreeWorkout from "./pages/FreeWorkout";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -54,6 +55,7 @@ const App = () => (
             <Route path="/account" element={<Account />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/free-workout" element={<FreeWorkout />} />
             <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
