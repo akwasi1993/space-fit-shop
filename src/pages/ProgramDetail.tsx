@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Clock, TrendingUp, Edit, Trash2 } from "lucide-react";
+import { Clock, TrendingUp, Edit, Trash2, ArrowLeft } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { toast } from "sonner";
 
@@ -112,6 +112,13 @@ const ProgramDetail = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
+      <Link to="/programs" className="inline-block mb-6">
+        <Button variant="ghost" className="gap-2">
+          <ArrowLeft className="h-4 w-4" />
+          Back to Programs
+        </Button>
+      </Link>
+
       <div className="mb-6">
         <img
           src={program.cover_image_url}
