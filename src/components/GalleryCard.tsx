@@ -9,6 +9,7 @@ import { ReportContent } from "@/components/ReportContent";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { commentSchema } from "@/lib/validation";
 
 interface GalleryCardProps {
   id: string;
@@ -46,22 +47,29 @@ export const GalleryCard = ({ id, image, title, tags, author }: GalleryCardProps
 
   const loadInteractions = async () => {
     try {
-      const { data, error } = await supabase
-        .from("gallery_interactions")
-        .select("is_like, user_id")
-        .eq("image_id", id);
+      // Use aggregate view for public stats
+      const { data: stats, error: statsError } = await supabase
+        .from("gallery_image_stats")
+        .select("like_count, dislike_count")
+        .eq("image_id", id)
+        .maybeSingle();
 
-      if (error) throw error;
+      if (statsError) throw statsError;
 
-      if (data) {
-        const likesCount = data.filter((i) => i.is_like).length;
-        const dislikesCount = data.filter((i) => !i.is_like).length;
-        setLikes(likesCount);
-        setDislikes(dislikesCount);
+      setLikes(stats?.like_count || 0);
+      setDislikes(stats?.dislike_count || 0);
 
-        if (user) {
-          const userInt = data.find((i) => i.user_id === user.id);
-          setUserInteraction(userInt ? userInt.is_like : null);
+      // Load user's own interaction separately if logged in
+      if (user) {
+        const { data: userInt, error: userError } = await supabase
+          .from("gallery_interactions")
+          .select("is_like")
+          .eq("image_id", id)
+          .eq("user_id", user.id)
+          .maybeSingle();
+
+        if (!userError && userInt) {
+          setUserInteraction(userInt.is_like);
         }
       }
     } catch (error) {
@@ -147,14 +155,17 @@ export const GalleryCard = ({ id, image, title, tags, author }: GalleryCardProps
       return;
     }
 
-    if (!newComment.trim()) return;
-
-    setIsSubmitting(true);
+    // Validate comment input
     try {
+      const validated = commentSchema.parse({
+        comment_text: newComment.trim()
+      });
+
+      setIsSubmitting(true);
       const { error } = await supabase.from("gallery_comments").insert({
         user_id: user.id,
         image_id: id,
-        comment_text: newComment.trim(),
+        comment_text: validated.comment_text,
       });
 
       if (error) throw error;
@@ -162,9 +173,13 @@ export const GalleryCard = ({ id, image, title, tags, author }: GalleryCardProps
       setNewComment("");
       loadComments();
       toast.success("Comment added!");
-    } catch (error) {
-      console.error("Error adding comment:", error);
-      toast.error("Failed to add comment");
+    } catch (error: any) {
+      if (error.errors) {
+        toast.error(error.errors[0].message);
+      } else {
+        console.error("Error adding comment:", error);
+        toast.error("Failed to add comment");
+      }
     } finally {
       setIsSubmitting(false);
     }

@@ -169,7 +169,7 @@ export type Database = {
           category: string | null
           cover_image_url: string
           created_at: string | null
-          created_by_user_id: string | null
+          created_by_user_id: string
           duration: string
           full_description: string | null
           id: string
@@ -189,7 +189,7 @@ export type Database = {
           category?: string | null
           cover_image_url: string
           created_at?: string | null
-          created_by_user_id?: string | null
+          created_by_user_id: string
           duration: string
           full_description?: string | null
           id?: string
@@ -209,7 +209,7 @@ export type Database = {
           category?: string | null
           cover_image_url?: string
           created_at?: string | null
-          created_by_user_id?: string | null
+          created_by_user_id?: string
           duration?: string
           full_description?: string | null
           id?: string
@@ -250,7 +250,14 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      gallery_image_stats: {
+        Row: {
+          dislike_count: number | null
+          image_id: string | null
+          like_count: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
