@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -135,10 +135,20 @@ const categories = [
 const Inspiration = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [userImages, setUserImages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Initialize filters from URL params
+  useEffect(() => {
+    const urlFilters = searchParams.get("filters");
+    if (urlFilters) {
+      const filterArray = urlFilters.split(",");
+      setSelectedFilters(filterArray);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     loadGalleryImages();

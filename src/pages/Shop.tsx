@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Filter } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
@@ -36,6 +37,7 @@ const products = [
     category: "Cardio",
     portable: true,
     quiet: true,
+    quickSetup: false,
   },
   {
     id: "2",
@@ -44,6 +46,7 @@ const products = [
     image: productDumbbells,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "3",
@@ -53,6 +56,7 @@ const products = [
     category: "Recovery",
     portable: true,
     quiet: true,
+    quickSetup: true,
   },
   {
     id: "4",
@@ -61,6 +65,7 @@ const products = [
     image: productYogaMat,
     category: "Recovery",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "5",
@@ -69,6 +74,7 @@ const products = [
     image: productResistanceBands,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "6",
@@ -77,6 +83,7 @@ const products = [
     image: productFoamRoller,
     category: "Recovery",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "7",
@@ -85,6 +92,7 @@ const products = [
     image: productKettlebell,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "8",
@@ -93,6 +101,7 @@ const products = [
     image: productPullupBar,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "9",
@@ -102,6 +111,7 @@ const products = [
     category: "Cardio",
     portable: true,
     quiet: true,
+    quickSetup: false,
   },
   {
     id: "10",
@@ -110,6 +120,7 @@ const products = [
     image: productFitnessTracker,
     category: "Accessories",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "11",
@@ -118,6 +129,7 @@ const products = [
     image: productJumpRope,
     category: "Cardio",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "12",
@@ -127,6 +139,7 @@ const products = [
     category: "Recovery",
     portable: true,
     quiet: true,
+    quickSetup: true,
   },
   {
     id: "13",
@@ -135,6 +148,7 @@ const products = [
     image: productYogaBlocks,
     category: "Recovery",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "14",
@@ -143,6 +157,7 @@ const products = [
     image: productAnkleWeights,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "15",
@@ -151,6 +166,7 @@ const products = [
     image: productAbRoller,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "16",
@@ -159,6 +175,7 @@ const products = [
     image: productBalanceBoard,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "17",
@@ -167,6 +184,7 @@ const products = [
     image: productPushupBars,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "18",
@@ -175,6 +193,7 @@ const products = [
     image: productResistanceLoops,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "19",
@@ -183,6 +202,7 @@ const products = [
     image: productWorkoutGloves,
     category: "Accessories",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "20",
@@ -191,6 +211,7 @@ const products = [
     image: productWaterBottle,
     category: "Accessories",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "21",
@@ -199,6 +220,7 @@ const products = [
     image: productGripStrengthener,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "22",
@@ -207,6 +229,7 @@ const products = [
     image: productSuspensionTrainer,
     category: "Strength",
     portable: true,
+    quickSetup: false,
   },
   {
     id: "23",
@@ -215,6 +238,7 @@ const products = [
     image: productMedicineBall,
     category: "Strength",
     portable: true,
+    quickSetup: true,
   },
   {
     id: "24",
@@ -223,20 +247,43 @@ const products = [
     image: productGymBag,
     category: "Accessories",
     portable: true,
+    quickSetup: true,
   },
 ];
 
 const Shop = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("featured");
+  const [filterType, setFilterType] = useState<string | null>(null);
+
+  // Initialize filters from URL params
+  useEffect(() => {
+    const urlCategory = searchParams.get("category");
+    const urlFilter = searchParams.get("filter");
+    
+    if (urlCategory) {
+      setCategory(urlCategory);
+    }
+    if (urlFilter) {
+      setFilterType(urlFilter);
+    }
+  }, [searchParams]);
 
   // Get unique categories from products
   const categories = Array.from(new Set(products.map(p => p.category)));
 
-  // Filter products based on selected category
-  const filteredProducts = category === "all" 
+  // Filter products based on selected category and filter type
+  let filteredProducts = category === "all" 
     ? products 
     : products.filter(p => p.category.toLowerCase() === category.toLowerCase());
+
+  // Apply special filters (portable, quickSetup)
+  if (filterType === "portable") {
+    filteredProducts = filteredProducts.filter(p => p.portable);
+  } else if (filterType === "quick-setup") {
+    filteredProducts = filteredProducts.filter(p => p.quickSetup);
+  }
 
   // Sort the filtered products
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -253,6 +300,8 @@ const Shop = () => {
   const handleResetFilters = () => {
     setCategory("all");
     setSortBy("featured");
+    setFilterType(null);
+    setSearchParams({});
   };
 
   return (
@@ -260,8 +309,16 @@ const Shop = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">Shop Equipment</h1>
-            <p className="text-muted-foreground">Compact gear for small spaces</p>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2">
+              {filterType === "portable" && "Portable Equipment"}
+              {filterType === "quick-setup" && "Quick Setup Equipment"}
+              {!filterType && "Shop Equipment"}
+            </h1>
+            <p className="text-muted-foreground">
+              {filterType === "portable" && "Easy to move, carry, and store fitness gear"}
+              {filterType === "quick-setup" && "Fast assembly, start training right away"}
+              {!filterType && "Compact gear for small spaces"}
+            </p>
           </div>
           <div className="flex gap-3">
             <Select value={category} onValueChange={setCategory}>
