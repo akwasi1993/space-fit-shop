@@ -99,24 +99,21 @@ const Index = () => {
       {/* Featured Products */}
       <section className="py-12 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-2">Compact Bestsellers</h2>
-              <p className="text-muted-foreground">Our most popular small-space gear</p>
-            </div>
-            <Link to="/shop" className="hidden md:block">
-              <Button variant="outline">View All</Button>
-            </Link>
+          <div className="mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-2">Compact Bestsellers</h2>
+            <p className="text-muted-foreground">Our most popular small-space gear</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
-            <Card className="p-8 flex flex-col items-center justify-center text-center border-2 border-dashed border-border hover:border-primary transition-smooth cursor-pointer">
-              <ArrowRight className="h-10 w-10 text-primary mb-4" />
-              <h3 className="font-semibold mb-2">View All Products</h3>
-              <p className="text-sm text-muted-foreground">Explore our full collection</p>
-            </Card>
+            <Link to="/shop">
+              <Card className="p-8 flex flex-col items-center justify-center text-center border-2 border-dashed border-border hover:border-primary transition-smooth cursor-pointer">
+                <ArrowRight className="h-10 w-10 text-primary mb-4" />
+                <h3 className="font-semibold mb-2">View All Products</h3>
+                <p className="text-sm text-muted-foreground">Explore our full collection</p>
+              </Card>
+            </Link>
           </div>
         </div>
       </section>
