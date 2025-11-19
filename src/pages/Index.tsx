@@ -139,16 +139,34 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6">
             {[
-              { icon: Home, title: "Small-Space Ready", desc: "Fits apartments & dorms" },
-              { icon: Package, title: "Portable", desc: "Easy to move & store" },
-              { icon: Zap, title: "Quick Setup", desc: "Start working out fast" },
-              { icon: Dumbbell, title: "Complete Bundles", desc: "Everything you need" },
+              { icon: Home, title: "Small-Space Ready", desc: "Fits apartments & dorms", link: null },
+              { icon: Package, title: "Portable", desc: "Easy to move & store", link: null },
+              { icon: Zap, title: "Quick Setup", desc: "Start working out fast", link: null },
+              { icon: Dumbbell, title: "Complete Bundles", desc: "Everything you need", link: "#bundles" },
             ].map((feature, i) => (
-              <Card key={i} className="p-6 text-center border-border hover:shadow-elevated transition-smooth">
-                <feature.icon className="h-10 w-10 mx-auto mb-4 text-primary" />
-                <h3 className="font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.desc}</p>
-              </Card>
+              feature.link ? (
+                <a
+                  key={i}
+                  href={feature.link}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector(feature.link)?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="block"
+                >
+                  <Card className="p-6 text-center border-border hover:shadow-elevated hover:border-primary transition-smooth cursor-pointer h-full">
+                    <feature.icon className="h-10 w-10 mx-auto mb-4 text-primary" />
+                    <h3 className="font-semibold mb-2">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground">{feature.desc}</p>
+                  </Card>
+                </a>
+              ) : (
+                <Card key={i} className="p-6 text-center border-border hover:shadow-elevated transition-smooth">
+                  <feature.icon className="h-10 w-10 mx-auto mb-4 text-primary" />
+                  <h3 className="font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground">{feature.desc}</p>
+                </Card>
+              )
             ))}
           </div>
         </div>
@@ -177,7 +195,7 @@ const Index = () => {
       </section>
 
       {/* Complete Bundles */}
-      <section className="py-12 md:py-20 bg-secondary/30">
+      <section id="bundles" className="py-12 md:py-20 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="mb-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-2">Complete Bundles</h2>
