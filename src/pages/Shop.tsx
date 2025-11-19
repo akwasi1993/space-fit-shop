@@ -122,6 +122,31 @@ const Shop = () => {
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("featured");
 
+  // Get unique categories from products
+  const categories = Array.from(new Set(products.map(p => p.category)));
+
+  // Filter products based on selected category
+  const filteredProducts = category === "all" 
+    ? products 
+    : products.filter(p => p.category.toLowerCase() === category.toLowerCase());
+
+  // Sort the filtered products
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortBy === "price-low") {
+      return a.price - b.price;
+    } else if (sortBy === "price-high") {
+      return b.price - a.price;
+    }
+    // Default "featured" - keep original order
+    return 0;
+  });
+
+  // Reset filters function
+  const handleResetFilters = () => {
+    setCategory("all");
+    setSortBy("featured");
+  };
+
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
       <div className="container mx-auto px-4 py-8">
@@ -135,33 +160,44 @@ const Shop = () => {
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-popover z-50">
                 <SelectItem value="all">All Items</SelectItem>
-                <SelectItem value="cardio">Cardio</SelectItem>
-                <SelectItem value="strength">Strength</SelectItem>
-                <SelectItem value="recovery">Recovery</SelectItem>
+                {categories.map(cat => (
+                  <SelectItem key={cat} value={cat.toLowerCase()}>{cat}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-popover z-50">
                 <SelectItem value="featured">Featured</SelectItem>
                 <SelectItem value="price-low">Price: Low to High</SelectItem>
                 <SelectItem value="price-high">Price: High to Low</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" size="icon">
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={handleResetFilters}
+              title="Reset Filters"
+            >
               <Filter className="h-4 w-4" />
             </Button>
           </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {products.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
+          {sortedProducts.length > 0 ? (
+            sortedProducts.map((product) => (
+              <ProductCard key={product.id} {...product} />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-12">
+              <p className="text-muted-foreground">No products found in this category.</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
