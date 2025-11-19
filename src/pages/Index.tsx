@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import ProductCard from "@/components/ProductCard";
+import BundleCard from "@/components/BundleCard";
+import BundleBuilder from "@/components/BundleBuilder";
 import heroFitness from "@/assets/hero-fitness.jpg";
 import productTreadmill from "@/assets/product-treadmill.jpg";
 import productDumbbells from "@/assets/product-dumbbells.jpg";
@@ -35,6 +37,62 @@ const featuredProducts = [
     category: "Recovery",
     portable: true,
     quiet: true,
+  },
+];
+
+const fitnessBundles = [
+  {
+    id: "beginner-starter",
+    name: "Beginner Starter Kit",
+    description: "Everything you need to start your fitness journey at home. These essentials provide a solid foundation for basic exercises and recovery.",
+    targetCustomer: "Complete beginners starting their fitness journey",
+    items: [
+      { id: "4", name: "Premium Yoga Mat", price: 79 },
+      { id: "5", name: "Resistance Band Set", price: 49 },
+      { id: "11", name: "Speed Jump Rope", price: 29 },
+    ],
+    totalPrice: 139,
+    savings: 18,
+  },
+  {
+    id: "weight-loss-essentials",
+    name: "Weight Loss Essentials",
+    description: "Cardio-focused equipment perfect for burning calories and improving endurance. Combine with recovery tools to keep you going strong.",
+    targetCustomer: "Those focused on weight loss and cardio training",
+    items: [
+      { id: "11", name: "Speed Jump Rope", price: 29 },
+      { id: "5", name: "Resistance Band Set", price: 49 },
+      { id: "4", name: "Premium Yoga Mat", price: 79 },
+      { id: "10", name: "Fitness Tracker Watch", price: 129 },
+    ],
+    totalPrice: 249,
+    savings: 37,
+  },
+  {
+    id: "strength-builder",
+    name: "Strength Builder Bundle",
+    description: "Build serious muscle with adjustable weights and versatile equipment. Perfect for progressive overload training in small spaces.",
+    targetCustomer: "Intermediate users focused on building strength",
+    items: [
+      { id: "2", name: "Adjustable Dumbbell Set", price: 299 },
+      { id: "7", name: "Adjustable Kettlebell", price: 179 },
+      { id: "5", name: "Resistance Band Set", price: 49 },
+    ],
+    totalPrice: 475,
+    savings: 52,
+  },
+  {
+    id: "recovery-wellness",
+    name: "Recovery & Wellness Kit",
+    description: "Focus on flexibility, mobility, and muscle recovery. Ideal for active recovery days or complementing intense workout routines.",
+    targetCustomer: "Athletes and active individuals prioritizing recovery",
+    items: [
+      { id: "4", name: "Premium Yoga Mat", price: 79 },
+      { id: "6", name: "Textured Foam Roller", price: 39 },
+      { id: "3", name: "Pro Massage Gun", price: 149 },
+    ],
+    totalPrice: 237,
+    savings: 30,
   },
 ];
 
@@ -118,17 +176,30 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Complete Bundles */}
+      <section className="py-12 md:py-20 bg-secondary/30">
+        <div className="container mx-auto px-4">
+          <div className="mb-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-2">Complete Bundles</h2>
+            <p className="text-muted-foreground">Pre-selected equipment packages for every fitness goal</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {fitnessBundles.map((bundle) => (
+              <BundleCard key={bundle.id} {...bundle} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Build Your Bundle */}
       <section className="py-12 md:py-20 bg-gradient-primary">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Build Your Bundle</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Build Your Custom Bundle</h2>
             <p className="text-lg mb-8 opacity-90">
-              Answer 3 quick questions and we'll recommend the perfect starter kit for your space
+              Answer 3 quick questions and we'll recommend the perfect equipment selection from our catalog tailored to your needs
             </p>
-            <Button size="lg" variant="secondary">
-              Start Bundle Builder
-            </Button>
+            <BundleBuilder />
           </div>
         </div>
       </section>
