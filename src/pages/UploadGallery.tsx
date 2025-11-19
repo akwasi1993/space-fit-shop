@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { moderateContent } from "@/lib/moderation";
+import { galleryImageSchema } from "@/lib/validation";
 
 const LOCATION_TYPES = [
   "Garage",
@@ -98,8 +99,24 @@ const UploadGallery = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!selectedFile || !user || !title.trim()) {
+    if (!selectedFile || !user) {
       toast.error("Please fill in all required fields");
+      return;
+    }
+
+    // Validate inputs using schema
+    try {
+      galleryImageSchema.parse({
+        title: title.trim(),
+        description: description.trim() || undefined,
+        location_type: locationType
+      });
+    } catch (error: any) {
+      if (error.errors) {
+        toast.error(error.errors[0].message);
+      } else {
+        toast.error("Please check your inputs");
+      }
       return;
     }
 

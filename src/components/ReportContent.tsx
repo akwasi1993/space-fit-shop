@@ -17,6 +17,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { REPORT_REASONS } from "@/lib/moderation";
+import { reportSchema } from "@/lib/validation";
 import { useNavigate } from "react-router-dom";
 
 interface ReportContentProps {
@@ -37,6 +38,34 @@ export function ReportContent({ contentType, contentId, variant = "text" }: Repo
     if (!user) {
       toast.error("Please sign in to report content");
       navigate("/auth");
+      return;
+    }
+
+    // Validate report input
+    try {
+      reportSchema.parse({
+        reason,
+        details: reason === "other" ? details : null
+      });
+    } catch (error: any) {
+      if (error.errors) {
+        toast.error(error.errors[0].message);
+      } else {
+        toast.error("Please check your report details");
+      }
+      return;
+    }
+
+    // Check for duplicate reports
+    const { data: existingReport } = await supabase
+      .from("content_reports")
+      .select("id")
+      .eq("reporter_user_id", user.id)
+      .eq("content_id", contentId)
+      .maybeSingle();
+
+    if (existingReport) {
+      toast.error("You have already reported this content");
       return;
     }
 
