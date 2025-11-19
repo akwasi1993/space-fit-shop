@@ -38,6 +38,10 @@ const ProgramForm = () => {
   const [coverImagePreview, setCoverImagePreview] = useState<string>("");
   const [video, setVideo] = useState<File | null>(null);
   const [videoPreview, setVideoPreview] = useState<string>("");
+  const [videoSource, setVideoSource] = useState<"upload" | "link">("upload");
+  const [videoLink, setVideoLink] = useState("");
+  const [pdfDocument, setPdfDocument] = useState<File | null>(null);
+  const [pdfPreview, setPdfPreview] = useState<string>("");
 
   useEffect(() => {
     if (!authLoading && !isCreator) {
@@ -73,7 +77,15 @@ const ProgramForm = () => {
         tags: data.tags?.join(", ") || "",
       });
       setCoverImagePreview(data.cover_image_url);
-      setVideoPreview(data.intro_video_url);
+      
+      // Check if video URL is a YouTube/Vimeo link or uploaded file
+      const videoUrl = data.intro_video_url;
+      if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be') || videoUrl.includes('vimeo.com')) {
+        setVideoSource("link");
+        setVideoLink(videoUrl);
+      } else {
+        setVideoPreview(videoUrl);
+      }
     } catch (error) {
       console.error("Error loading program:", error);
       toast.error("Failed to load program");
@@ -98,6 +110,24 @@ const ProgramForm = () => {
     return data.publicUrl;
   };
 
+  const convertToEmbedUrl = (url: string): string => {
+    // YouTube
+    if (url.includes('youtube.com/watch')) {
+      const videoId = new URL(url).searchParams.get('v');
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+    if (url.includes('youtu.be/')) {
+      const videoId = url.split('youtu.be/')[1].split('?')[0];
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+    // Vimeo
+    if (url.includes('vimeo.com/')) {
+      const videoId = url.split('vimeo.com/')[1].split('?')[0];
+      return `https://player.vimeo.com/video/${videoId}`;
+    }
+    return url;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
@@ -107,8 +137,13 @@ const ProgramForm = () => {
       return;
     }
 
-    if (!video && !videoPreview) {
+    if (videoSource === "upload" && !video && !videoPreview) {
       toast.error("Please upload a video");
+      return;
+    }
+
+    if (videoSource === "link" && !videoLink) {
+      toast.error("Please provide a video link");
       return;
     }
 
@@ -118,20 +153,30 @@ const ProgramForm = () => {
     try {
       let coverImageUrl = coverImagePreview;
       let videoUrl = videoPreview;
+      let pdfUrl = pdfPreview;
 
       if (coverImage) {
-        setUploadProgress(25);
+        setUploadProgress(20);
         const imagePath = `${user.id}/${Date.now()}-${coverImage.name}`;
         coverImageUrl = await uploadFile(coverImage, "program-covers", imagePath);
       }
 
-      if (video) {
-        setUploadProgress(50);
+      if (videoSource === "link") {
+        videoUrl = convertToEmbedUrl(videoLink);
+        setUploadProgress(60);
+      } else if (video) {
+        setUploadProgress(40);
         const videoPath = `${user.id}/${Date.now()}-${video.name}`;
         videoUrl = await uploadFile(video, "program-videos", videoPath);
       }
 
-      setUploadProgress(75);
+      if (pdfDocument) {
+        setUploadProgress(70);
+        const pdfPath = `${user.id}/${Date.now()}-${pdfDocument.name}`;
+        pdfUrl = await uploadFile(pdfDocument, "user-uploads", pdfPath);
+      }
+
+      setUploadProgress(85);
 
       const programData = {
         title: formData.title,
@@ -308,20 +353,84 @@ const ProgramForm = () => {
           helperText="Max 5MB - JPG, PNG, WEBP"
         />
 
+        <div className="space-y-4">
+          <label className="text-sm font-medium block">
+            Program Video <span className="text-destructive">*</span>
+          </label>
+          
+          <div className="flex gap-4 mb-4">
+            <Button
+              type="button"
+              variant={videoSource === "upload" ? "default" : "outline"}
+              onClick={() => setVideoSource("upload")}
+              className="flex-1"
+            >
+              Upload Video
+            </Button>
+            <Button
+              type="button"
+              variant={videoSource === "link" ? "default" : "outline"}
+              onClick={() => setVideoSource("link")}
+              className="flex-1"
+            >
+              Paste Link
+            </Button>
+          </div>
+
+          {videoSource === "upload" ? (
+            <FileUpload
+              label=""
+              accept="video/*"
+              maxSize={100 * 1024 * 1024}
+              onFileSelect={(file) => {
+                setVideo(file);
+                setVideoPreview(URL.createObjectURL(file));
+              }}
+              preview={videoPreview}
+              onClear={() => {
+                setVideo(null);
+                setVideoPreview("");
+              }}
+              helperText="Max 100MB - MP4, MOV"
+            />
+          ) : (
+            <div>
+              <Input
+                value={videoLink}
+                onChange={(e) => setVideoLink(e.target.value)}
+                placeholder="https://youtube.com/watch?v=... or https://vimeo.com/..."
+                className="mb-2"
+              />
+              <p className="text-xs text-muted-foreground">
+                Paste a YouTube or Vimeo link
+              </p>
+              {videoLink && (
+                <div className="mt-4 aspect-video bg-muted rounded-lg overflow-hidden">
+                  <iframe
+                    src={convertToEmbedUrl(videoLink)}
+                    className="w-full h-full"
+                    allowFullScreen
+                  />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
         <FileUpload
-          label="Intro Video"
-          accept="video/*"
-          maxSize={100 * 1024 * 1024}
+          label="Workout Plan PDF (Optional)"
+          accept=".pdf,.doc,.docx"
+          maxSize={10 * 1024 * 1024}
           onFileSelect={(file) => {
-            setVideo(file);
-            setVideoPreview(URL.createObjectURL(file));
+            setPdfDocument(file);
+            setPdfPreview(file.name);
           }}
-          preview={videoPreview}
+          preview={pdfPreview}
           onClear={() => {
-            setVideo(null);
-            setVideoPreview("");
+            setPdfDocument(null);
+            setPdfPreview("");
           }}
-          helperText="Max 100MB - MP4, MOV"
+          helperText="Max 10MB - PDF, DOC, DOCX"
         />
 
         {uploadProgress > 0 && (
