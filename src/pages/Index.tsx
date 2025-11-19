@@ -144,12 +144,12 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6">
             {[
-              { icon: Home, title: "Small-Space Ready", desc: "Fits apartments & dorms", link: null },
-              { icon: Package, title: "Portable", desc: "Easy to move & store", link: null },
-              { icon: Zap, title: "Quick Setup", desc: "Start working out fast", link: null },
+              { icon: Home, title: "Small-Space Ready", desc: "Fits apartments & dorms", link: "/inspiration?filters=Apartment,Small-Space Gym" },
+              { icon: Package, title: "Portable", desc: "Easy to move & store", link: "/shop?filter=portable" },
+              { icon: Zap, title: "Quick Setup", desc: "Start working out fast", link: "/shop?filter=quick-setup" },
               { icon: Dumbbell, title: "Complete Bundles", desc: "Everything you need", link: "#bundles" },
             ].map((feature, i) => (
-              feature.link ? (
+              feature.link?.startsWith("#") ? (
                 <a
                   key={i}
                   href={feature.link}
@@ -166,11 +166,13 @@ const Index = () => {
                   </Card>
                 </a>
               ) : (
-                <Card key={i} className="p-6 text-center border-border hover:shadow-elevated transition-smooth">
-                  <feature.icon className="h-10 w-10 mx-auto mb-4 text-primary" />
-                  <h3 className="font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">{feature.desc}</p>
-                </Card>
+                <Link key={i} to={feature.link} className="block">
+                  <Card className="p-6 text-center border-border hover:shadow-elevated hover:border-primary transition-smooth cursor-pointer h-full">
+                    <feature.icon className="h-10 w-10 mx-auto mb-4 text-primary" />
+                    <h3 className="font-semibold mb-2">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground">{feature.desc}</p>
+                  </Card>
+                </Link>
               )
             ))}
           </div>
