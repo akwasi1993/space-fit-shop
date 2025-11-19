@@ -101,6 +101,50 @@ const ProgramForm = () => {
       .replace(/(^-|-$)/g, "");
   };
 
+  const generateUniqueSlug = async (title: string, currentSlug?: string) => {
+    const baseSlug = generateSlug(title);
+    
+    // If editing and title hasn't changed, keep the current slug
+    if (currentSlug && baseSlug === generateSlug(currentSlug)) {
+      return currentSlug;
+    }
+
+    // Check if base slug exists
+    const { data: existingProgram } = await supabase
+      .from("programs")
+      .select("slug")
+      .eq("slug", baseSlug)
+      .maybeSingle();
+
+    if (!existingProgram) {
+      return baseSlug;
+    }
+
+    // If slug exists, find the next available number
+    let suffix = 2;
+    let uniqueSlug = `${baseSlug}-${suffix}`;
+    
+    while (true) {
+      const { data: conflictingProgram } = await supabase
+        .from("programs")
+        .select("slug")
+        .eq("slug", uniqueSlug)
+        .maybeSingle();
+
+      if (!conflictingProgram) {
+        return uniqueSlug;
+      }
+
+      suffix++;
+      uniqueSlug = `${baseSlug}-${suffix}`;
+      
+      // Safety check to prevent infinite loops
+      if (suffix > 1000) {
+        throw new Error("Unable to generate unique slug");
+      }
+    }
+  };
+
   const uploadFile = async (file: File, bucket: string, path: string) => {
     const { error } = await supabase.storage
       .from(bucket)
@@ -180,9 +224,12 @@ const ProgramForm = () => {
 
       setUploadProgress(85);
 
+      // Generate unique slug
+      const uniqueSlug = await generateUniqueSlug(formData.title, slug);
+
       const programData = {
         title: formData.title,
-        slug: formData.slug || generateSlug(formData.title),
+        slug: uniqueSlug,
         short_description: formData.shortDescription,
         full_description: formData.fullDescription || null,
         cover_image_url: coverImageUrl,
