@@ -261,9 +261,11 @@ const Index = () => {
               <p className="mb-6 opacity-90">
                 See what you can achieve with minimal equipment
               </p>
-              <Button size="lg" variant="secondary">
-                Watch Now
-              </Button>
+              <Link to="/free-workout">
+                <Button size="lg" variant="secondary">
+                  Watch Now
+                </Button>
+              </Link>
             </div>
           </Card>
         </div>
