@@ -179,11 +179,12 @@ const Shop = () => {
             </Select>
             <Button 
               variant="outline" 
-              size="icon"
+              size="sm"
               onClick={handleResetFilters}
-              title="Reset Filters"
+              className="gap-2"
             >
               <Filter className="h-4 w-4" />
+              Reset Filters
             </Button>
           </div>
         </div>
