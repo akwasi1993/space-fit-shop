@@ -9,7 +9,12 @@ import heroFitness from "@/assets/hero-fitness.jpg";
 import productTreadmill from "@/assets/product-treadmill.jpg";
 import productDumbbells from "@/assets/product-dumbbells.jpg";
 import productMassageGun from "@/assets/product-massage-gun.jpg";
-import inspirationApartment from "@/assets/inspiration-apartment.jpg";
+import galleryApartment from "@/assets/gallery-apartment-gym.jpg";
+import galleryGarage from "@/assets/gallery-garage-gym.jpg";
+import galleryBasement from "@/assets/gallery-basement-gym.jpg";
+import galleryBedroom from "@/assets/gallery-bedroom-gym.jpg";
+import galleryLuxury from "@/assets/gallery-luxury-gym.jpg";
+import galleryCardio from "@/assets/gallery-cardio-corner.jpg";
 
 const featuredProducts = [
   {
@@ -234,17 +239,32 @@ const Index = () => {
               <Button variant="outline">View Gallery</Button>
             </Link>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <Card key={i} className="group overflow-hidden border-border hover:shadow-elevated transition-smooth cursor-pointer">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src={inspirationApartment}
-                    alt="Home gym setup"
-                    className="object-cover w-full h-full group-hover:scale-105 transition-smooth"
-                  />
-                </div>
-              </Card>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {[
+              { image: galleryApartment, title: "Compact Apartment Gym", size: "Small Space" },
+              { image: galleryGarage, title: "Garage Conversion", size: "Full Setup" },
+              { image: galleryBasement, title: "Basement Gym", size: "Mid-Size" },
+              { image: galleryBedroom, title: "Spare Bedroom", size: "Minimal" },
+              { image: galleryLuxury, title: "Luxury Home Gym", size: "Premium" },
+              { image: galleryCardio, title: "Cardio Corner", size: "Living Space" },
+            ].map((gallery, i) => (
+              <Link key={i} to="/inspiration">
+                <Card className="group overflow-hidden border-border hover:shadow-elevated transition-smooth cursor-pointer">
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={gallery.image}
+                      alt={gallery.title}
+                      className="object-cover w-full h-full group-hover:scale-105 transition-smooth"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-smooth">
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 className="font-semibold text-foreground mb-1">{gallery.title}</h3>
+                        <p className="text-sm text-muted-foreground">{gallery.size}</p>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
