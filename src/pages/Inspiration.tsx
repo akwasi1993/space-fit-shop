@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { GalleryCard } from "@/components/GalleryCard";
 import { useAuth } from "@/hooks/use-auth";
 import galleryApartment from "@/assets/gallery-apartment-gym.jpg";
 import galleryGarage from "@/assets/gallery-garage-gym.jpg";
@@ -117,7 +119,6 @@ const inspirations = [
 ];
 
 const categories = [
-  "All",
   "Garage",
   "Sunroom",
   "Basement",
@@ -132,17 +133,29 @@ const categories = [
 const Inspiration = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
 
-  const filteredInspirations = activeFilter === "All"
+  const filteredInspirations = selectedFilters.length === 0
     ? inspirations
-    : inspirations.filter((item) => item.category === activeFilter);
+    : inspirations.filter((item) => selectedFilters.includes(item.category));
+
+  const handleFilterToggle = (category: string) => {
+    setSelectedFilters((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+
+  const clearAllFilters = () => {
+    setSelectedFilters([]);
+  };
 
   const handleUploadClick = () => {
     if (user) {
       navigate("/upload");
     } else {
-      // Store intended destination for after login
       sessionStorage.setItem("redirectAfterLogin", "/upload");
       navigate("/auth");
     }
@@ -157,45 +170,91 @@ const Inspiration = () => {
             Real home gyms from our community
           </p>
 
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={activeFilter === category ? "default" : "outline"}
-                size="sm"
-                onClick={() => setActiveFilter(category)}
-                className="transition-smooth"
-              >
-                {category}
-              </Button>
-            ))}
+          {/* Mobile Filter Toggle */}
+          <div className="md:hidden mb-4">
+            <Button
+              variant="outline"
+              onClick={() => setShowFilters(!showFilters)}
+              className="w-full"
+            >
+              {showFilters ? "Hide Filters" : "Show Filters"}
+              {selectedFilters.length > 0 && ` (${selectedFilters.length})`}
+            </Button>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredInspirations.map((item) => (
-            <Card key={item.id} className="group overflow-hidden border-border hover:shadow-elevated transition-smooth cursor-pointer">
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="object-cover w-full h-full group-hover:scale-105 transition-smooth"
-                />
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Filter Sidebar */}
+          <aside
+            className={`
+              md:w-64 flex-shrink-0
+              ${showFilters ? "block" : "hidden md:block"}
+            `}
+          >
+            <Card className="p-4 sticky top-4">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-lg">Filters</h3>
+                {selectedFilters.length > 0 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearAllFilters}
+                    className="text-xs"
+                  >
+                    Clear All
+                  </Button>
+                )}
               </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground mb-3">by {item.author}</p>
-                <div className="flex gap-2 flex-wrap">
-                  {item.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+              <div className="space-y-3">
+                {categories.map((category) => (
+                  <div key={category} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={category}
+                      checked={selectedFilters.includes(category)}
+                      onCheckedChange={() => handleFilterToggle(category)}
+                    />
+                    <Label
+                      htmlFor={category}
+                      className="text-sm font-normal cursor-pointer"
+                    >
+                      {category}
+                    </Label>
+                  </div>
+                ))}
               </div>
             </Card>
-          ))}
+          </aside>
+
+          {/* Gallery Grid */}
+          <div className="flex-1">
+            <div className="grid md:grid-cols-2 gap-6">
+              {filteredInspirations.map((item) => (
+                <GalleryCard
+                  key={item.id}
+                  id={item.id}
+                  image={item.image}
+                  title={item.title}
+                  tags={item.tags}
+                  author={item.author}
+                />
+              ))}
+            </div>
+
+            {filteredInspirations.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">
+                  No galleries match your selected filters.
+                </p>
+                <Button
+                  variant="link"
+                  onClick={clearAllFilters}
+                  className="mt-2"
+                >
+                  Clear all filters
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
 
         <Card className="mt-12 bg-gradient-primary text-primary-foreground p-8 md:p-12">
