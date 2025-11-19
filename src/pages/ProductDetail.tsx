@@ -16,6 +16,18 @@ import productPullupBar from "@/assets/product-pullup-bar.jpg";
 import productExerciseBike from "@/assets/product-exercise-bike.jpg";
 import productFitnessTracker from "@/assets/product-fitness-tracker.jpg";
 import productJumpRope from "@/assets/product-jump-rope.jpg";
+import productYogaBlocks from "@/assets/product-yoga-blocks.jpg";
+import productAnkleWeights from "@/assets/product-ankle-weights.jpg";
+import productAbRoller from "@/assets/product-ab-roller.jpg";
+import productBalanceBoard from "@/assets/product-balance-board.jpg";
+import productPushupBars from "@/assets/product-pushup-bars.jpg";
+import productResistanceLoops from "@/assets/product-resistance-loops.jpg";
+import productWorkoutGloves from "@/assets/product-workout-gloves.jpg";
+import productWaterBottle from "@/assets/product-water-bottle.jpg";
+import productGripStrengthener from "@/assets/product-grip-strengthener.jpg";
+import productSuspensionTrainer from "@/assets/product-suspension-trainer.jpg";
+import productMedicineBall from "@/assets/product-medicine-ball.jpg";
+import productGymBag from "@/assets/product-gym-bag.jpg";
 
 // Extended products database
 const products = [
@@ -164,6 +176,176 @@ const products = [
     description: "Adjustable length jump rope with ball bearings for smooth rotation. Perfect for cardio anywhere.",
     features: ["Ball bearing system", "Adjustable length", "Memory foam handles", "Carrying pouch"],
     specs: { dimensions: "10 ft adjustable", weight: "0.5 lbs", material: "PVC/Steel" }
+  },
+  {
+    id: "12",
+    name: "Elite Massage Gun Pro",
+    price: 199,
+    image: productMassageGun,
+    category: "Recovery",
+    portable: true,
+    quiet: true,
+    rating: 4.9,
+    reviews: 367,
+    description: "Professional-grade massage gun with advanced percussion therapy. 8 speed settings and 6 interchangeable heads for targeted muscle recovery.",
+    features: ["8 speed levels", "6 massage heads", "4-hour battery", "LCD display", "Premium case"],
+    specs: { dimensions: "9.5\" x 7.5\" x 3.5\"", weight: "2.8 lbs", battery: "3200mAh" }
+  },
+  {
+    id: "13",
+    name: "Yoga Block Set",
+    price: 24,
+    image: productYogaBlocks,
+    category: "Recovery",
+    portable: true,
+    rating: 4.7,
+    reviews: 512,
+    description: "Set of 2 high-density foam blocks for yoga and stretching. Provides stability and support for all skill levels.",
+    features: ["Set of 2 blocks", "Non-slip surface", "Lightweight", "Easy to clean"],
+    specs: { dimensions: "9\" x 6\" x 4\" each", weight: "0.5 lbs each", material: "EVA Foam" }
+  },
+  {
+    id: "14",
+    name: "Adjustable Ankle Weights",
+    price: 34,
+    image: productAnkleWeights,
+    category: "Strength",
+    portable: true,
+    rating: 4.5,
+    reviews: 298,
+    description: "Comfortable ankle weights with adjustable straps. Add resistance to cardio and leg exercises for enhanced workouts.",
+    features: ["1-5 lb adjustable", "Secure velcro straps", "Moisture-resistant", "Removable weight pods"],
+    specs: { dimensions: "Adjustable fit", weight: "5 lbs per pair", material: "Neoprene" }
+  },
+  {
+    id: "15",
+    name: "Ab Wheel Roller",
+    price: 19,
+    image: productAbRoller,
+    category: "Strength",
+    portable: true,
+    rating: 4.6,
+    reviews: 643,
+    description: "Dual-wheel ab roller with non-slip handles for core strengthening. Stable design perfect for beginners and advanced users.",
+    features: ["Dual wheels", "Non-slip grips", "Knee pad included", "Stable design"],
+    specs: { dimensions: "7\" width", weight: "1.5 lbs", capacity: "350 lbs" }
+  },
+  {
+    id: "16",
+    name: "Wooden Balance Board",
+    price: 89,
+    image: productBalanceBoard,
+    category: "Strength",
+    portable: true,
+    rating: 4.8,
+    reviews: 234,
+    description: "Premium wooden balance board for core stability and coordination. Improves balance, posture, and overall body control.",
+    features: ["Natural wood construction", "Non-slip surface", "360° rotation", "Multi-use design"],
+    specs: { dimensions: "16\" diameter", weight: "4 lbs", capacity: "300 lbs" }
+  },
+  {
+    id: "17",
+    name: "Push-Up Bars",
+    price: 29,
+    image: productPushupBars,
+    category: "Strength",
+    portable: true,
+    rating: 4.7,
+    reviews: 478,
+    description: "Ergonomic push-up bars that reduce wrist strain and increase range of motion. Non-slip base for stability on any surface.",
+    features: ["Ergonomic grips", "Non-slip base", "Foam padding", "Portable"],
+    specs: { dimensions: "9\" x 6\" x 5\"", weight: "1 lb per bar", capacity: "400 lbs" }
+  },
+  {
+    id: "18",
+    name: "Mini Resistance Loops",
+    price: 18,
+    image: productResistanceLoops,
+    category: "Strength",
+    portable: true,
+    rating: 4.8,
+    reviews: 789,
+    description: "Set of 5 mini resistance bands for lower body and glute activation. Perfect for warm-ups and targeted exercises.",
+    features: ["5 resistance levels", "Non-slip fabric", "Compact design", "Carrying bag"],
+    specs: { dimensions: "12\" circumference", weight: "0.3 lbs", material: "Cotton/Latex blend" }
+  },
+  {
+    id: "19",
+    name: "Training Gloves",
+    price: 24,
+    image: productWorkoutGloves,
+    category: "Accessories",
+    portable: true,
+    rating: 4.6,
+    reviews: 423,
+    description: "Breathable workout gloves with padded palms for grip and protection. Wrist support strap for added stability during lifts.",
+    features: ["Padded palm", "Wrist support", "Breathable mesh", "Easy pull tabs"],
+    specs: { dimensions: "Multiple sizes", weight: "0.2 lbs", material: "Synthetic leather/Mesh" }
+  },
+  {
+    id: "20",
+    name: "Sports Water Bottle",
+    price: 16,
+    image: productWaterBottle,
+    category: "Accessories",
+    portable: true,
+    rating: 4.7,
+    reviews: 891,
+    description: "Insulated stainless steel water bottle keeps drinks cold for 24 hours. Leak-proof design with easy-carry handle.",
+    features: ["24-hour cold", "Leak-proof lid", "BPA-free", "Carry handle"],
+    specs: { dimensions: "10\" x 3\"", weight: "0.8 lbs", capacity: "32 oz" }
+  },
+  {
+    id: "21",
+    name: "Hand Grip Strengthener",
+    price: 12,
+    image: productGripStrengthener,
+    category: "Strength",
+    portable: true,
+    rating: 4.5,
+    reviews: 567,
+    description: "Adjustable hand gripper for building forearm and grip strength. Resistance ranges from 22-88 lbs for progressive training.",
+    features: ["Adjustable resistance", "Ergonomic design", "Non-slip handles", "Compact"],
+    specs: { dimensions: "5\" x 4\"", weight: "0.4 lbs", resistance: "22-88 lbs" }
+  },
+  {
+    id: "22",
+    name: "Suspension Trainer",
+    price: 79,
+    image: productSuspensionTrainer,
+    category: "Strength",
+    portable: true,
+    rating: 4.8,
+    reviews: 312,
+    description: "Complete bodyweight training system with adjustable straps. Anchor anywhere for hundreds of exercises using your body weight.",
+    features: ["Adjustable straps", "Door anchor", "Heavy-duty webbing", "Exercise guide"],
+    specs: { dimensions: "96\" length", weight: "2 lbs", capacity: "350 lbs" }
+  },
+  {
+    id: "23",
+    name: "Medicine Ball",
+    price: 45,
+    image: productMedicineBall,
+    category: "Strength",
+    portable: true,
+    rating: 4.6,
+    reviews: 378,
+    description: "Textured medicine ball for dynamic exercises and core training. Durable rubber construction with easy-grip surface.",
+    features: ["Textured surface", "Durable rubber", "Multiple weights", "Bounce resistant"],
+    specs: { dimensions: "9\" diameter", weight: "10 lbs", material: "Rubber" }
+  },
+  {
+    id: "24",
+    name: "Gym Duffel Bag",
+    price: 49,
+    image: productGymBag,
+    category: "Accessories",
+    portable: true,
+    rating: 4.7,
+    reviews: 445,
+    description: "Spacious gym bag with multiple compartments for organized storage. Water-resistant material with ventilated shoe compartment.",
+    features: ["Shoe compartment", "Water-resistant", "Padded shoulder strap", "Multiple pockets"],
+    specs: { dimensions: "22\" x 12\" x 10\"", weight: "1.5 lbs", capacity: "40L" }
   }
 ];
 
