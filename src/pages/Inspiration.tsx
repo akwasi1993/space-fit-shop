@@ -1,28 +1,102 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import inspirationApartment from "@/assets/inspiration-apartment.jpg";
+import galleryApartment from "@/assets/gallery-apartment-gym.jpg";
+import galleryGarage from "@/assets/gallery-garage-gym.jpg";
+import galleryBasement from "@/assets/gallery-basement-gym.jpg";
+import galleryBedroom from "@/assets/gallery-bedroom-gym.jpg";
+import galleryLuxury from "@/assets/gallery-luxury-gym.jpg";
+import galleryCardio from "@/assets/gallery-cardio-corner.jpg";
+import galleryGarageModern from "@/assets/gallery-garage-modern.jpg";
+import galleryOffice from "@/assets/gallery-office-gym.jpg";
+import gallerySunroom from "@/assets/gallery-sunroom-gym.jpg";
+import galleryAttic from "@/assets/gallery-attic-gym.jpg";
+import galleryNook from "@/assets/gallery-nook-gym.jpg";
+import galleryLoft from "@/assets/gallery-loft-gym.jpg";
 
 const inspirations = [
   {
     id: "1",
-    image: inspirationApartment,
-    title: "Studio Apartment Setup",
-    tags: ["Apartment", "Budget-Friendly"],
+    image: galleryApartment,
+    title: "Compact Apartment Home Gym",
+    tags: ["Apartment", "Minimal Space"],
     author: "Sarah M.",
   },
   {
     id: "2",
-    image: inspirationApartment,
-    title: "Dorm Room Gym",
-    tags: ["Dorm", "Minimal Space"],
-    author: "Alex K.",
+    image: galleryGarage,
+    title: "Complete Garage Conversion",
+    tags: ["Garage", "Full Setup"],
+    author: "Mike D.",
   },
   {
     id: "3",
-    image: inspirationApartment,
-    title: "RV Fitness Corner",
-    tags: ["RV", "Travel"],
-    author: "Mike D.",
+    image: galleryBasement,
+    title: "Finished Basement Workout Room",
+    tags: ["Basement", "Multi-Purpose"],
+    author: "Jessica T.",
+  },
+  {
+    id: "4",
+    image: galleryBedroom,
+    title: "Spare Bedroom Transformation",
+    tags: ["Bedroom", "Beginner Friendly"],
+    author: "Alex K.",
+  },
+  {
+    id: "5",
+    image: galleryLuxury,
+    title: "High-End Home Fitness Studio",
+    tags: ["Luxury", "Premium Setup"],
+    author: "David R.",
+  },
+  {
+    id: "6",
+    image: galleryCardio,
+    title: "Living Room Cardio Corner",
+    tags: ["Living Space", "Cardio Focus"],
+    author: "Emma L.",
+  },
+  {
+    id: "7",
+    image: galleryGarageModern,
+    title: "Modern Garage Gym Build",
+    tags: ["Garage", "Strength Training"],
+    author: "Chris P.",
+  },
+  {
+    id: "8",
+    image: galleryOffice,
+    title: "Home Office & Gym Combo",
+    tags: ["Office", "Multi-Purpose"],
+    author: "Taylor S.",
+  },
+  {
+    id: "9",
+    image: gallerySunroom,
+    title: "Bright Sunroom Fitness Space",
+    tags: ["Sunroom", "Yoga & Cardio"],
+    author: "Rachel W.",
+  },
+  {
+    id: "10",
+    image: galleryAttic,
+    title: "Cozy Attic Training Studio",
+    tags: ["Attic", "Functional Training"],
+    author: "Jordan B.",
+  },
+  {
+    id: "11",
+    image: galleryNook,
+    title: "Smart Closet Micro Gym",
+    tags: ["Closet", "Ultra Compact"],
+    author: "Morgan F.",
+  },
+  {
+    id: "12",
+    image: galleryLoft,
+    title: "Industrial Loft Gym",
+    tags: ["Loft", "Boxing & Strength"],
+    author: "Casey M.",
   },
 ];
 
