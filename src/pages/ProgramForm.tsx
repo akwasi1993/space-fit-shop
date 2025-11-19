@@ -192,7 +192,7 @@ const ProgramForm = () => {
         category: formData.category || null,
         tags: formData.tags ? formData.tags.split(",").map((t) => t.trim()) : [],
         created_by_user_id: user.id,
-        status: 'pending' as const, // New programs start as pending for moderation
+        status: 'approved' as const, // Auto-publish all new programs
       };
 
       if (slug) {
@@ -205,7 +205,7 @@ const ProgramForm = () => {
           console.error("Update error details:", error);
           throw error;
         }
-        toast.success("Program updated successfully and pending review");
+        toast.success("Program updated successfully");
       } else {
         const { error, data } = await supabase.from("programs").insert(programData).select();
 
@@ -214,7 +214,7 @@ const ProgramForm = () => {
           throw error;
         }
         console.log("Program created successfully:", data);
-        toast.success("Program submitted successfully! It will appear after review.");
+        toast.success("Program published successfully!");
       }
 
       setUploadProgress(100);

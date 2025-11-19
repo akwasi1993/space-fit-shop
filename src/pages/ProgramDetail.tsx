@@ -120,23 +120,12 @@ const ProgramDetail = () => {
         />
       </div>
 
-      {/* Moderation Status Banner */}
-      {program.status !== 'approved' && (
-        <div className={`mb-6 p-4 rounded-lg border ${
-          program.status === 'pending' 
-            ? 'bg-yellow-50 border-yellow-200 dark:bg-yellow-950 dark:border-yellow-800' 
-            : 'bg-red-50 border-red-200 dark:bg-red-950 dark:border-red-800'
-        }`}>
+      {/* Show status banner only for rejected programs */}
+      {program.status === 'rejected' && (
+        <div className="mb-6 p-4 rounded-lg border bg-red-50 border-red-200 dark:bg-red-950 dark:border-red-800">
           <div className="flex items-center gap-2">
-            <Badge variant={program.status === 'pending' ? 'secondary' : 'destructive'}>
-              {program.status === 'pending' ? 'Pending Review' : 'Rejected'}
-            </Badge>
-            {program.status === 'pending' && (
-              <p className="text-sm text-muted-foreground">
-                Your program is awaiting moderation review.
-              </p>
-            )}
-            {program.status === 'rejected' && program.rejection_reason && (
+            <Badge variant="destructive">Rejected</Badge>
+            {program.rejection_reason && (
               <p className="text-sm text-destructive">
                 Reason: {program.rejection_reason}
               </p>
