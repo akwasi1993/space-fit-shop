@@ -37,6 +37,7 @@ const Programs = () => {
       const { data, error } = await supabase
         .from("programs")
         .select("*")
+        .eq("status", "approved")
         .order("created_at", { ascending: false });
 
       if (error) throw error;

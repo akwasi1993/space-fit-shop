@@ -12,6 +12,7 @@ import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Inspiration from "./pages/Inspiration";
 import Upload from "./pages/Upload";
+import UploadGallery from "./pages/UploadGallery";
 import Gallery from "./pages/Gallery";
 import Programs from "./pages/Programs";
 import ProgramDetail from "./pages/ProgramDetail";
@@ -23,6 +24,7 @@ import Account from "./pages/Account";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import FreeWorkout from "./pages/FreeWorkout";
+import AdminModeration from "./pages/AdminModeration";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,8 +49,10 @@ const App = () => (
                   <Route path="/programs/new" element={<ProgramForm />} />
                   <Route path="/programs/:slug" element={<ProgramDetail />} />
                   <Route path="/programs/:slug/edit" element={<ProgramForm />} />
-                  <Route path="/upload" element={<Upload />} />
-                  <Route path="/gallery" element={<Gallery />} />
+            <Route path="/upload" element={<Upload />} />
+            <Route path="/upload/gallery" element={<UploadGallery />} />
+            <Route path="/admin/moderation" element={<AdminModeration />} />
+            <Route path="/gallery" element={<Gallery />} />
                   <Route path="/search" element={<Search />} />
                   <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
