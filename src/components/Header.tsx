@@ -1,11 +1,26 @@
-import { Menu, Search, ShoppingCart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Menu, Search, ShoppingCart, LogOut, User } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useCart } from "@/hooks/use-cart";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import ThemeSwitcher from "./ThemeSwitcher";
 
 const Header = () => {
   const { totalItems } = useCart();
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast.error("Failed to log out");
+    } else {
+      toast.success("Logged out successfully");
+      navigate("/");
+    }
+  };
   
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur">
@@ -25,12 +40,16 @@ const Header = () => {
               <Link to="/programs" className="text-sm font-medium text-foreground hover:text-primary transition-smooth">
                 Programs
               </Link>
-              <Link to="/upload" className="text-sm font-medium text-foreground hover:text-primary transition-smooth">
-                Upload
-              </Link>
-              <Link to="/gallery" className="text-sm font-medium text-foreground hover:text-primary transition-smooth">
-                Gallery
-              </Link>
+              {user && (
+                <>
+                  <Link to="/upload" className="text-sm font-medium text-foreground hover:text-primary transition-smooth">
+                    Upload
+                  </Link>
+                  <Link to="/gallery" className="text-sm font-medium text-foreground hover:text-primary transition-smooth">
+                    Gallery
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
           <div className="flex items-center gap-3">
@@ -50,6 +69,38 @@ const Header = () => {
                 )}
               </Button>
             </Link>
+            
+            {!loading && (
+              <>
+                {user ? (
+                  <>
+                    <Link to="/profile" className="hidden md:block">
+                      <Button variant="ghost" size="icon">
+                        <User className="h-5 w-5" />
+                      </Button>
+                    </Link>
+                    <Button 
+                      variant="ghost" 
+                      size="icon"
+                      onClick={handleLogout}
+                      className="hidden md:flex"
+                    >
+                      <LogOut className="h-5 w-5" />
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/auth" className="hidden md:block">
+                      <Button variant="ghost">Sign In</Button>
+                    </Link>
+                    <Link to="/auth" className="hidden md:block">
+                      <Button>Sign Up</Button>
+                    </Link>
+                  </>
+                )}
+              </>
+            )}
+            
             <Button variant="ghost" size="icon" className="md:hidden">
               <Menu className="h-5 w-5" />
             </Button>

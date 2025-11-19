@@ -1,18 +1,26 @@
 import { Home, Search, ShoppingCart, User, Upload, Image } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "@/hooks/use-cart";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 
 const MobileNav = () => {
   const { totalItems } = useCart();
+  const { user } = useAuth();
   const location = useLocation();
 
-  const navItems = [
-    { icon: Home, label: "Shop", path: "/" },
-    { icon: Image, label: "Gallery", path: "/gallery" },
-    { icon: ShoppingCart, label: "Cart", path: "/cart", badge: totalItems },
-    { icon: User, label: "Account", path: "/account" },
-  ];
+  const navItems = user
+    ? [
+        { icon: Home, label: "Shop", path: "/" },
+        { icon: Image, label: "Gallery", path: "/gallery" },
+        { icon: ShoppingCart, label: "Cart", path: "/cart", badge: totalItems },
+        { icon: User, label: "Profile", path: "/profile" },
+      ]
+    : [
+        { icon: Home, label: "Shop", path: "/" },
+        { icon: ShoppingCart, label: "Cart", path: "/cart", badge: totalItems },
+        { icon: User, label: "Sign In", path: "/auth" },
+      ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border md:hidden">
