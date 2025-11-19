@@ -38,7 +38,14 @@ const Auth = () => {
       }
     } else {
       toast.success("Signed in successfully!");
-      navigate("/");
+      // Check for redirect destination
+      const redirectPath = sessionStorage.getItem("redirectAfterLogin");
+      if (redirectPath) {
+        sessionStorage.removeItem("redirectAfterLogin");
+        navigate(redirectPath);
+      } else {
+        navigate("/");
+      }
     }
   };
 
@@ -89,7 +96,14 @@ const Auth = () => {
       }
     } else {
       toast.success("Account created successfully! Welcome to FitOnTheGo!");
-      navigate("/");
+      // Check for redirect destination
+      const redirectPath = sessionStorage.getItem("redirectAfterLogin");
+      if (redirectPath) {
+        sessionStorage.removeItem("redirectAfterLogin");
+        navigate(redirectPath);
+      } else {
+        navigate("/");
+      }
     }
   };
 
