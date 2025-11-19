@@ -26,7 +26,7 @@ const Programs = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [level, setLevel] = useState("all");
   const [category, setCategory] = useState("all");
-  const { isCreator, loading: authLoading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
 
   useEffect(() => {
     loadPrograms();
@@ -69,12 +69,21 @@ const Programs = () => {
               instructions.
             </p>
           </div>
-          <Link to="/programs/new" className="w-full md:w-auto">
-            <Button className="w-full md:w-auto">
-              <Plus className="mr-2 h-4 w-4" />
-              Add New Program
-            </Button>
-          </Link>
+          {!authLoading && user ? (
+            <Link to="/programs/new" className="w-full md:w-auto">
+              <Button className="w-full md:w-auto">
+                <Plus className="mr-2 h-4 w-4" />
+                Add New Program
+              </Button>
+            </Link>
+          ) : !authLoading && !user ? (
+            <Link to="/auth" className="w-full md:w-auto">
+              <Button className="w-full md:w-auto">
+                <Plus className="mr-2 h-4 w-4" />
+                Add New Program
+              </Button>
+            </Link>
+          ) : null}
         </div>
 
         <ProgramFilters

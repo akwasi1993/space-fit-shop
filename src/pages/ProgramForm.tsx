@@ -19,7 +19,7 @@ import { Progress } from "@/components/ui/progress";
 const ProgramForm = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const { user, isCreator, loading: authLoading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -44,11 +44,13 @@ const ProgramForm = () => {
   const [pdfPreview, setPdfPreview] = useState<string>("");
 
   useEffect(() => {
-    if (!authLoading && !isCreator) {
-      toast.error("You must be a creator to access this page");
-      navigate("/programs");
+    if (!authLoading && !user) {
+      toast.error("Please log in to add a program");
+      // Store intended destination for after login
+      sessionStorage.setItem("redirectAfterLogin", "/programs/new");
+      navigate("/auth");
     }
-  }, [authLoading, isCreator, navigate]);
+  }, [authLoading, user, navigate]);
 
   useEffect(() => {
     if (slug) {
