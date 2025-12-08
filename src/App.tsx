@@ -25,7 +25,12 @@ import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import FreeWorkout from "./pages/FreeWorkout";
 import AdminModeration from "./pages/AdminModeration";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RefundPolicy from "./pages/RefundPolicy";
+import ShippingPolicy from "./pages/ShippingPolicy";
 import NotFound from "./pages/NotFound";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -60,9 +65,14 @@ const App = () => (
             <Route path="/profile" element={<Profile />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/free-workout" element={<FreeWorkout />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/shipping" element={<ShippingPolicy />} />
             <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
+              <Footer />
               <MobileNav />
             </div>
           </BrowserRouter>
