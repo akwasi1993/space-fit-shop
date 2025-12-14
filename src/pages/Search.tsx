@@ -11,7 +11,7 @@ const products = [
   {
     id: "1",
     name: "Compact Folding Treadmill",
-    price: 599,
+    price: 399,
     image: productTreadmill,
     category: "Cardio",
     portable: true,

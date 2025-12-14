@@ -20,7 +20,7 @@ const featuredProducts = [
   {
     id: "1",
     name: "Compact Folding Treadmill",
-    price: 599,
+    price: 399,
     image: productTreadmill,
     category: "Cardio",
     portable: true,
@@ -68,9 +68,9 @@ const fitnessBundles = [
       { id: "11", name: "Speed Jump Rope", price: 29 },
       { id: "5", name: "Resistance Band Set", price: 49 },
       { id: "4", name: "Premium Yoga Mat", price: 79 },
-      { id: "10", name: "Fitness Tracker Watch", price: 129 },
+      { id: "10", name: "Fitness Tracker Watch", price: 79 },
     ],
-    totalPrice: 249,
+    totalPrice: 199,
     savings: 37,
   },
   {
