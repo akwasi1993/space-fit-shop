@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from "@supabase/supabase-js";
 
@@ -7,6 +7,19 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
   const [isCreator, setIsCreator] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const clearAuthState = useCallback(() => {
+    setUser(null);
+    setIsCreator(false);
+    setIsAdmin(false);
+  }, []);
+
+  const signOut = useCallback(async () => {
+    // Clear local state immediately
+    clearAuthState();
+    // Then attempt server signout (ignore errors for expired sessions)
+    await supabase.auth.signOut();
+  }, [clearAuthState]);
 
   useEffect(() => {
     // Get initial session
@@ -56,5 +69,5 @@ export const useAuth = () => {
     }
   };
 
-  return { user, loading, isCreator, isAdmin };
+  return { user, loading, isCreator, isAdmin, signOut };
 };

@@ -9,17 +9,11 @@ import ThemeSwitcher from "./ThemeSwitcher";
 
 const Header = () => {
   const { totalItems } = useCart();
-  const { user, loading } = useAuth();
+  const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-    } catch (error) {
-      // Ignore errors - session may already be invalid
-      console.log("Logout completed (session may have been expired)");
-    }
-    // Always clear local state and redirect, even if server call fails
+    await signOut();
     toast.success("Logged out successfully");
     navigate("/");
   };
