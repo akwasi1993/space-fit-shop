@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
-import { Mail, Lock, User, ArrowLeft, Calendar } from "lucide-react";
+import { Mail, Lock, User, ArrowLeft, Calendar, Eye, EyeOff } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -25,6 +25,7 @@ const Auth = () => {
   const [signUpConfirmPassword, setSignUpConfirmPassword] = useState("");
   const [signUpName, setSignUpName] = useState("");
   const [signUpDob, setSignUpDob] = useState<Date | undefined>(undefined);
+  const [showSignInPassword, setShowSignInPassword] = useState(false);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -201,13 +202,25 @@ const Auth = () => {
                       <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="signin-password"
-                        type="password"
+                        type={showSignInPassword ? "text" : "password"}
                         placeholder="••••••••"
-                        className="pl-10"
+                        className="pl-10 pr-10"
                         value={signInPassword}
                         onChange={(e) => setSignInPassword(e.target.value)}
                         required
                       />
+                      <button
+                        type="button"
+                        className="absolute right-3 top-3 text-muted-foreground hover:text-foreground transition-colors"
+                        onClick={() => setShowSignInPassword(!showSignInPassword)}
+                        aria-label={showSignInPassword ? "Hide password" : "Show password"}
+                      >
+                        {showSignInPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </button>
                     </div>
                   </div>
                   <div className="flex items-center justify-between text-sm">
