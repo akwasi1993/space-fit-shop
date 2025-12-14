@@ -3,41 +3,17 @@ import { Search as SearchIcon, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
-import productTreadmill from "@/assets/product-treadmill.jpg";
-import productDumbbells from "@/assets/product-dumbbells.jpg";
-import productMassageGun from "@/assets/product-massage-gun.jpg";
-
-const products = [
-  {
-    id: "1",
-    name: "Compact Folding Treadmill",
-    price: 399,
-    image: productTreadmill,
-    category: "Cardio",
-    portable: true,
-    quiet: true,
-  },
-  {
-    id: "2",
-    name: "Adjustable Dumbbell Set",
-    price: 299,
-    image: productDumbbells,
-    category: "Strength",
-    portable: true,
-  },
-  {
-    id: "3",
-    name: "Pro Massage Gun",
-    price: 99,
-    image: productMassageGun,
-    category: "Recovery",
-    portable: true,
-    quiet: true,
-  },
-];
+import { products } from "@/data/products";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredProducts = searchQuery.trim()
+    ? products.filter((product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -69,13 +45,26 @@ const Search = () => {
         {searchQuery ? (
           <div>
             <p className="text-muted-foreground mb-6">
-              Showing results for "{searchQuery}"
+              {filteredProducts.length > 0 
+                ? `Showing ${filteredProducts.length} result${filteredProducts.length !== 1 ? 's' : ''} for "${searchQuery}"`
+                : `No results found for "${searchQuery}"`
+              }
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {products.map((product) => (
-                <ProductCard key={product.id} {...product} />
-              ))}
-            </div>
+            {filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} {...product} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <SearchIcon className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2">No products found</h3>
+                <p className="text-muted-foreground">
+                  Try adjusting your search terms
+                </p>
+              </div>
+            )}
           </div>
         ) : (
           <div className="text-center py-12">
