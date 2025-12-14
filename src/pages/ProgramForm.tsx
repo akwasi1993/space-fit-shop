@@ -156,22 +156,74 @@ const ProgramForm = () => {
     return data.publicUrl;
   };
 
-  const convertToEmbedUrl = (url: string): string => {
-    // YouTube
-    if (url.includes('youtube.com/watch')) {
-      const videoId = new URL(url).searchParams.get('v');
-      return `https://www.youtube.com/embed/${videoId}`;
+  const ALLOWED_VIDEO_DOMAINS = [
+    'youtube.com',
+    'www.youtube.com',
+    'youtu.be',
+    'vimeo.com',
+    'player.vimeo.com'
+  ];
+
+  const isValidVideoUrl = (url: string): boolean => {
+    try {
+      const parsed = new URL(url);
+      return ALLOWED_VIDEO_DOMAINS.includes(parsed.hostname);
+    } catch {
+      return false;
     }
-    if (url.includes('youtu.be/')) {
-      const videoId = url.split('youtu.be/')[1].split('?')[0];
-      return `https://www.youtube.com/embed/${videoId}`;
+  };
+
+  const convertToEmbedUrl = (url: string): string | null => {
+    try {
+      const parsed = new URL(url);
+      
+      // Validate domain
+      if (!ALLOWED_VIDEO_DOMAINS.includes(parsed.hostname)) {
+        return null;
+      }
+
+      // YouTube watch URL
+      if (parsed.hostname === 'youtube.com' || parsed.hostname === 'www.youtube.com') {
+        if (parsed.pathname === '/watch') {
+          const videoId = parsed.searchParams.get('v');
+          if (videoId && /^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+            return `https://www.youtube.com/embed/${videoId}`;
+          }
+        }
+        // YouTube embed URL (already valid)
+        if (parsed.pathname.startsWith('/embed/')) {
+          const videoId = parsed.pathname.split('/embed/')[1]?.split('?')[0];
+          if (videoId && /^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+            return url;
+          }
+        }
+        return null;
+      }
+
+      // YouTube short URL
+      if (parsed.hostname === 'youtu.be') {
+        const videoId = parsed.pathname.slice(1).split('?')[0];
+        if (videoId && /^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+          return `https://www.youtube.com/embed/${videoId}`;
+        }
+        return null;
+      }
+
+      // Vimeo
+      if (parsed.hostname === 'vimeo.com' || parsed.hostname === 'player.vimeo.com') {
+        const pathParts = parsed.pathname.split('/').filter(Boolean);
+        // For player.vimeo.com/video/ID or vimeo.com/ID
+        const videoId = parsed.hostname === 'player.vimeo.com' ? pathParts[1] : pathParts[0];
+        if (videoId && /^\d+$/.test(videoId)) {
+          return `https://player.vimeo.com/video/${videoId}`;
+        }
+        return null;
+      }
+
+      return null;
+    } catch {
+      return null;
     }
-    // Vimeo
-    if (url.includes('vimeo.com/')) {
-      const videoId = url.split('vimeo.com/')[1].split('?')[0];
-      return `https://player.vimeo.com/video/${videoId}`;
-    }
-    return url;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -188,9 +240,15 @@ const ProgramForm = () => {
       return;
     }
 
-    if (videoSource === "link" && !videoLink) {
-      toast.error("Please provide a video link");
-      return;
+    if (videoSource === "link") {
+      if (!videoLink) {
+        toast.error("Please provide a video link");
+        return;
+      }
+      if (!isValidVideoUrl(videoLink)) {
+        toast.error("Please provide a valid YouTube or Vimeo URL");
+        return;
+      }
     }
 
     setLoading(true);
@@ -208,7 +266,13 @@ const ProgramForm = () => {
       }
 
       if (videoSource === "link") {
-        videoUrl = convertToEmbedUrl(videoLink);
+        const embedUrl = convertToEmbedUrl(videoLink);
+        if (!embedUrl) {
+          toast.error("Invalid video URL format");
+          setLoading(false);
+          return;
+        }
+        videoUrl = embedUrl;
         setUploadProgress(60);
       } else if (video) {
         setUploadProgress(40);
@@ -464,14 +528,19 @@ const ProgramForm = () => {
               <p className="text-xs text-muted-foreground">
                 Paste a YouTube or Vimeo link
               </p>
-              {videoLink && (
+              {videoLink && isValidVideoUrl(videoLink) && convertToEmbedUrl(videoLink) && (
                 <div className="mt-4 aspect-video bg-muted rounded-lg overflow-hidden">
                   <iframe
-                    src={convertToEmbedUrl(videoLink)}
+                    src={convertToEmbedUrl(videoLink) || ''}
                     className="w-full h-full"
                     allowFullScreen
                   />
                 </div>
+              )}
+              {videoLink && !isValidVideoUrl(videoLink) && (
+                <p className="text-sm text-destructive mt-2">
+                  Please enter a valid YouTube or Vimeo URL
+                </p>
               )}
             </div>
           )}
