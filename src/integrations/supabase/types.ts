@@ -140,6 +140,48 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          image_key: string
+          name: string
+          portable: boolean | null
+          price: number
+          quick_setup: boolean | null
+          quiet: boolean | null
+          subcategory: string | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          image_key: string
+          name: string
+          portable?: boolean | null
+          price: number
+          quick_setup?: boolean | null
+          quiet?: boolean | null
+          subcategory?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          image_key?: string
+          name?: string
+          portable?: boolean | null
+          price?: number
+          quick_setup?: boolean | null
+          quiet?: boolean | null
+          subcategory?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
