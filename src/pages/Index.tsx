@@ -257,6 +257,8 @@ const Index = () => {
                     <img
                       src={gallery.image}
                       alt={gallery.title}
+                      loading="lazy"
+                      decoding="async"
                       className="object-cover w-full h-full group-hover:scale-105 transition-smooth"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-smooth">

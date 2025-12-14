@@ -33,6 +33,8 @@ const ProductCard = ({ id, name, price, image, category, portable, quiet }: Prod
         <img
           src={image}
           alt={name}
+          loading="lazy"
+          decoding="async"
           className="object-cover w-full h-full group-hover:scale-105 transition-smooth"
         />
         <div className="absolute bottom-3 left-3 flex gap-2">
