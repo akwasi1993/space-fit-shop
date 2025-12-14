@@ -93,7 +93,7 @@ const Header = () => {
                     <Link to="/auth" className="hidden md:block">
                       <Button variant="ghost">Sign In</Button>
                     </Link>
-                    <Link to="/auth" className="hidden md:block">
+                    <Link to="/auth?tab=signup" className="hidden md:block">
                       <Button>Sign Up</Button>
                     </Link>
                   </>
