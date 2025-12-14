@@ -37,7 +37,7 @@ const featuredProducts = [
   {
     id: "3",
     name: "Pro Massage Gun",
-    price: 149,
+    price: 99,
     image: productMassageGun,
     category: "Recovery",
     portable: true,
@@ -94,9 +94,9 @@ const fitnessBundles = [
     items: [
       { id: "4", name: "Premium Yoga Mat", price: 79 },
       { id: "6", name: "Textured Foam Roller", price: 39 },
-      { id: "3", name: "Pro Massage Gun", price: 149 },
+      { id: "3", name: "Pro Massage Gun", price: 99 },
     ],
-    totalPrice: 237,
+    totalPrice: 217,
     savings: 30,
   },
 ];

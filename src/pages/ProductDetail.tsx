@@ -69,7 +69,7 @@ const products = [
   {
     id: "3",
     name: "Pro Massage Gun",
-    price: 149,
+    price: 99,
     image: productMassageGun,
     category: "Recovery",
     portable: true,
