@@ -2,55 +2,27 @@ import { ArrowRight, Dumbbell, Home, Package, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import ProductCard from "@/components/ProductCard";
 import BundleCard from "@/components/BundleCard";
 import BundleBuilder from "@/components/BundleBuilder";
+import { useProducts } from "@/hooks/use-products";
 // Hero image is in public folder for LCP optimization
 const heroFitness = "/images/hero-fitness.jpg";
-import productTreadmill from "@/assets/product-treadmill.jpg";
-import productDumbbells from "@/assets/product-dumbbells.jpg";
-import productMassageGun from "@/assets/product-massage-gun.jpg";
 import productYogaMat from "@/assets/product-yoga-mat.jpg";
 import productResistanceBands from "@/assets/product-resistance-bands.jpg";
 import productFoamRoller from "@/assets/product-foam-roller.jpg";
 import productKettlebell from "@/assets/product-kettlebell.jpg";
 import productFitnessTracker from "@/assets/product-fitness-tracker.jpg";
 import productJumpRope from "@/assets/product-jump-rope.jpg";
+import productDumbbells from "@/assets/product-dumbbells.jpg";
+import productMassageGun from "@/assets/product-massage-gun.jpg";
 import galleryApartment from "@/assets/gallery-apartment-gym.jpg";
 import galleryGarage from "@/assets/gallery-garage-gym.jpg";
 import galleryBasement from "@/assets/gallery-basement-gym.jpg";
 import galleryBedroom from "@/assets/gallery-bedroom-gym.jpg";
 import galleryLuxury from "@/assets/gallery-luxury-gym.jpg";
 import galleryCardio from "@/assets/gallery-cardio-corner.jpg";
-
-const featuredProducts = [
-  {
-    id: "1",
-    name: "Compact Folding Treadmill",
-    price: 399,
-    image: productTreadmill,
-    category: "Cardio",
-    portable: true,
-    quiet: true,
-  },
-  {
-    id: "2",
-    name: "Adjustable Dumbbell Set",
-    price: 299,
-    image: productDumbbells,
-    category: "Strength",
-    portable: true,
-  },
-  {
-    id: "3",
-    name: "Pro Massage Gun",
-    price: 99,
-    image: productMassageGun,
-    category: "Recovery",
-    portable: true,
-    quiet: true,
-  },
-];
 
 const fitnessBundles = [
   {
@@ -59,9 +31,9 @@ const fitnessBundles = [
     description: "Everything you need to start your fitness journey at home. These essentials provide a solid foundation for basic exercises and recovery.",
     targetCustomer: "Complete beginners starting their fitness journey",
     items: [
-      { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
-      { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
-      { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+      { id: "bundle-yoga-mat", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
+      { id: "bundle-resistance-bands", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+      { id: "bundle-jump-rope", name: "Speed Jump Rope", price: 29, image: productJumpRope },
     ],
     totalPrice: 139,
     savings: 18,
@@ -72,10 +44,10 @@ const fitnessBundles = [
     description: "Cardio-focused equipment perfect for burning calories and improving endurance. Combine with recovery tools to keep you going strong.",
     targetCustomer: "Those focused on weight loss and cardio training",
     items: [
-      { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
-      { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
-      { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
-      { id: "10", name: "Fitness Tracker Watch", price: 79, image: productFitnessTracker },
+      { id: "bundle-jump-rope-2", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+      { id: "bundle-resistance-bands-2", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+      { id: "bundle-yoga-mat-2", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
+      { id: "bundle-fitness-tracker", name: "Fitness Tracker Watch", price: 79, image: productFitnessTracker },
     ],
     totalPrice: 199,
     savings: 37,
@@ -86,9 +58,9 @@ const fitnessBundles = [
     description: "Build serious muscle with adjustable weights and versatile equipment. Perfect for progressive overload training in small spaces.",
     targetCustomer: "Intermediate users focused on building strength",
     items: [
-      { id: "2", name: "Adjustable Dumbbell Set", price: 299, image: productDumbbells },
-      { id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell },
-      { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+      { id: "bundle-dumbbells", name: "Adjustable Dumbbell Set", price: 299, image: productDumbbells },
+      { id: "bundle-kettlebell", name: "Adjustable Kettlebell", price: 179, image: productKettlebell },
+      { id: "bundle-resistance-bands-3", name: "Resistance Band Set", price: 49, image: productResistanceBands },
     ],
     totalPrice: 475,
     savings: 52,
@@ -99,9 +71,9 @@ const fitnessBundles = [
     description: "Focus on flexibility, mobility, and muscle recovery. Ideal for active recovery days or complementing intense workout routines.",
     targetCustomer: "Athletes and active individuals prioritizing recovery",
     items: [
-      { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
-      { id: "6", name: "Textured Foam Roller", price: 39, image: productFoamRoller },
-      { id: "3", name: "Pro Massage Gun", price: 99, image: productMassageGun },
+      { id: "bundle-yoga-mat-3", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
+      { id: "bundle-foam-roller", name: "Textured Foam Roller", price: 39, image: productFoamRoller },
+      { id: "bundle-massage-gun", name: "Pro Massage Gun", price: 99, image: productMassageGun },
     ],
     totalPrice: 187,
     savings: 30,
@@ -109,6 +81,11 @@ const fitnessBundles = [
 ];
 
 const Index = () => {
+  const { data: products, isLoading } = useProducts();
+  
+  // Get first 3 products for featured section
+  const featuredProducts = products?.slice(0, 3) || [];
+
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
       {/* Hero Section */}
@@ -195,11 +172,25 @@ const Index = () => {
             <p className="text-muted-foreground">Our most popular small-space gear</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))}
+            {isLoading ? (
+              <>
+                {[1, 2, 3].map((i) => (
+                  <Card key={i} className="overflow-hidden">
+                    <Skeleton className="aspect-square" />
+                    <div className="p-4 space-y-2">
+                      <Skeleton className="h-4 w-3/4" />
+                      <Skeleton className="h-4 w-1/2" />
+                    </div>
+                  </Card>
+                ))}
+              </>
+            ) : (
+              featuredProducts.map((product) => (
+                <ProductCard key={product.id} {...product} />
+              ))
+            )}
             <Link to="/shop">
-              <Card className="p-8 flex flex-col items-center justify-center text-center border-2 border-dashed border-border hover:border-primary transition-smooth cursor-pointer">
+              <Card className="p-8 flex flex-col items-center justify-center text-center border-2 border-dashed border-border hover:border-primary transition-smooth cursor-pointer h-full min-h-[200px]">
                 <ArrowRight className="h-10 w-10 text-primary mb-4" />
                 <h3 className="font-semibold mb-2">View All Products</h3>
                 <p className="text-sm text-muted-foreground">Explore our full collection</p>
