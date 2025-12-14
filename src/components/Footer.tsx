@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
               <Dumbbell className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold text-foreground">HomeFit</span>
+              <span className="text-xl font-bold text-foreground">FitOnTheGo</span>
             </Link>
             <p className="text-sm text-muted-foreground">
               Your destination for premium home gym equipment and fitness programs. Build your dream home gym today.
@@ -77,11 +77,11 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4" />
-                support@homefit.com
+                support@fitonthego.com
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4" />
-                1-800-HOMEFIT
+                1-800-FITONTHEGO
               </li>
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5" />
@@ -93,7 +93,7 @@ const Footer = () => {
 
         <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} HomeFit. All rights reserved.
+            © {new Date().getFullYear()} FitOnTheGo. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link to="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">

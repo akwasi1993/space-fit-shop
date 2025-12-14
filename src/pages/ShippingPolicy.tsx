@@ -99,7 +99,7 @@ const ShippingPolicy = () => {
               Once your order ships, you will receive a tracking number via email. You can track your package:
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-              <li>Through your HomeFit account dashboard</li>
+              <li>Through your FitOnTheGo account dashboard</li>
               <li>Using the link provided in your shipping confirmation email</li>
               <li>Directly on the carrier's website</li>
             </ul>
@@ -163,8 +163,8 @@ const ShippingPolicy = () => {
               For shipping inquiries:
             </p>
             <p className="text-foreground mt-2">
-              Email: shipping@homefit.com<br />
-              Phone: 1-800-HOMEFIT<br />
+              Email: shipping@fitonthego.com<br />
+              Phone: 1-800-FITONTHEGO<br />
               Hours: Monday-Friday, 9AM-6PM EST
             </p>
           </section>

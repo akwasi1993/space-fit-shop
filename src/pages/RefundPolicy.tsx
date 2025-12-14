@@ -46,7 +46,7 @@ const RefundPolicy = () => {
             <h2 className="text-2xl font-semibold text-foreground">3. Return Process</h2>
             <p className="text-muted-foreground leading-relaxed">To initiate a return:</p>
             <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4">
-              <li>Contact our customer service at returns@homefit.com</li>
+              <li>Contact our customer service at returns@fitonthego.com</li>
               <li>Provide your order number and reason for return</li>
               <li>Receive a Return Merchandise Authorization (RMA) number</li>
               <li>Pack the item securely with all original packaging</li>
@@ -90,7 +90,7 @@ const RefundPolicy = () => {
               <li>Contact us within 48 hours of delivery</li>
               <li>Provide photos of the damage</li>
               <li>We will arrange for a replacement or full refund</li>
-              <li>Return shipping will be covered by HomeFit</li>
+              <li>Return shipping will be covered by FitOnTheGo</li>
             </ul>
           </section>
 
@@ -99,8 +99,8 @@ const RefundPolicy = () => {
             <p className="text-muted-foreground leading-relaxed">Return shipping responsibilities:</p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
               <li><strong>Customer-initiated returns:</strong> Customer pays return shipping</li>
-              <li><strong>Defective/damaged items:</strong> HomeFit covers shipping</li>
-              <li><strong>Wrong item shipped:</strong> HomeFit covers shipping</li>
+              <li><strong>Defective/damaged items:</strong> FitOnTheGo covers shipping</li>
+              <li><strong>Wrong item shipped:</strong> FitOnTheGo covers shipping</li>
               <li><strong>Exchanges:</strong> Free shipping for replacement items</li>
             </ul>
           </section>
@@ -131,8 +131,8 @@ const RefundPolicy = () => {
               For questions about returns or refunds:
             </p>
             <p className="text-foreground mt-2">
-              Email: returns@homefit.com<br />
-              Phone: 1-800-HOMEFIT<br />
+              Email: returns@fitonthego.com<br />
+              Phone: 1-800-FITONTHEGO<br />
               Hours: Monday-Friday, 9AM-6PM EST
             </p>
           </section>
