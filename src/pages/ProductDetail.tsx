@@ -32,6 +32,10 @@ import productOlympicBarbell from "@/assets/product-olympic-barbell.jpg";
 import productEzCurlBar from "@/assets/product-ez-curl-bar.jpg";
 import productShortBarbell from "@/assets/product-short-barbell.jpg";
 import productWeightPlates from "@/assets/product-weight-plates.jpg";
+import productDumbbells10lb from "@/assets/product-dumbbells-10lb.jpg";
+import productDumbbells20lb from "@/assets/product-dumbbells-20lb.jpg";
+import productDumbbells30lb from "@/assets/product-dumbbells-30lb.jpg";
+import productDumbbells50lb from "@/assets/product-dumbbells-50lb.jpg";
 
 // Extended products database
 const products = [
@@ -355,7 +359,7 @@ const products = [
     id: "25",
     name: "10lb Dumbbell Pair",
     price: 39,
-    image: productDumbbells,
+    image: productDumbbells10lb,
     category: "Strength",
     portable: true,
     rating: 4.8,
@@ -368,7 +372,7 @@ const products = [
     id: "26",
     name: "20lb Dumbbell Pair",
     price: 69,
-    image: productDumbbells,
+    image: productDumbbells20lb,
     category: "Strength",
     portable: true,
     rating: 4.8,
@@ -381,7 +385,7 @@ const products = [
     id: "27",
     name: "30lb Dumbbell Pair",
     price: 99,
-    image: productDumbbells,
+    image: productDumbbells30lb,
     category: "Strength",
     portable: true,
     rating: 4.7,
@@ -394,7 +398,7 @@ const products = [
     id: "28",
     name: "50lb Dumbbell Pair",
     price: 149,
-    image: productDumbbells,
+    image: productDumbbells50lb,
     category: "Strength",
     portable: true,
     rating: 4.9,

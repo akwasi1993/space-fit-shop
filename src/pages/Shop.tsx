@@ -31,6 +31,10 @@ import productOlympicBarbell from "@/assets/product-olympic-barbell.jpg";
 import productEzCurlBar from "@/assets/product-ez-curl-bar.jpg";
 import productShortBarbell from "@/assets/product-short-barbell.jpg";
 import productWeightPlates from "@/assets/product-weight-plates.jpg";
+import productDumbbells10lb from "@/assets/product-dumbbells-10lb.jpg";
+import productDumbbells20lb from "@/assets/product-dumbbells-20lb.jpg";
+import productDumbbells30lb from "@/assets/product-dumbbells-30lb.jpg";
+import productDumbbells50lb from "@/assets/product-dumbbells-50lb.jpg";
 
 const products = [
   {
@@ -257,8 +261,9 @@ const products = [
     id: "25",
     name: "10lb Dumbbell Pair",
     price: 39,
-    image: productDumbbells,
+    image: productDumbbells10lb,
     category: "Strength",
+    subcategory: "Free Weights",
     portable: true,
     quickSetup: true,
   },
@@ -266,8 +271,9 @@ const products = [
     id: "26",
     name: "20lb Dumbbell Pair",
     price: 69,
-    image: productDumbbells,
+    image: productDumbbells20lb,
     category: "Strength",
+    subcategory: "Free Weights",
     portable: true,
     quickSetup: true,
   },
@@ -275,8 +281,9 @@ const products = [
     id: "27",
     name: "30lb Dumbbell Pair",
     price: 99,
-    image: productDumbbells,
+    image: productDumbbells30lb,
     category: "Strength",
+    subcategory: "Free Weights",
     portable: true,
     quickSetup: true,
   },
@@ -284,8 +291,9 @@ const products = [
     id: "28",
     name: "50lb Dumbbell Pair",
     price: 149,
-    image: productDumbbells,
+    image: productDumbbells50lb,
     category: "Strength",
+    subcategory: "Free Weights",
     portable: true,
     quickSetup: true,
   },
@@ -295,6 +303,7 @@ const products = [
     price: 179,
     image: productOlympicBarbell,
     category: "Strength",
+    subcategory: "Free Weights",
     portable: false,
     quickSetup: true,
   },
@@ -304,6 +313,7 @@ const products = [
     price: 89,
     image: productEzCurlBar,
     category: "Strength",
+    subcategory: "Free Weights",
     portable: true,
     quickSetup: true,
   },
@@ -313,6 +323,7 @@ const products = [
     price: 59,
     image: productShortBarbell,
     category: "Strength",
+    subcategory: "Free Weights",
     portable: true,
     quickSetup: true,
   },
@@ -322,6 +333,7 @@ const products = [
     price: 45,
     image: productWeightPlates,
     category: "Strength",
+    subcategory: "Free Weights",
     portable: true,
     quickSetup: true,
   },
@@ -331,6 +343,7 @@ const products = [
     price: 89,
     image: productWeightPlates,
     category: "Strength",
+    subcategory: "Free Weights",
     portable: true,
     quickSetup: true,
   },
@@ -340,6 +353,7 @@ const products = [
     price: 149,
     image: productWeightPlates,
     category: "Strength",
+    subcategory: "Free Weights",
     portable: false,
     quickSetup: true,
   },
@@ -348,16 +362,21 @@ const products = [
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [category, setCategory] = useState("all");
+  const [subcategory, setSubcategory] = useState("all");
   const [sortBy, setSortBy] = useState("featured");
   const [filterType, setFilterType] = useState<string | null>(null);
 
   // Initialize filters from URL params
   useEffect(() => {
     const urlCategory = searchParams.get("category");
+    const urlSubcategory = searchParams.get("subcategory");
     const urlFilter = searchParams.get("filter");
     
     if (urlCategory) {
       setCategory(urlCategory);
+    }
+    if (urlSubcategory) {
+      setSubcategory(urlSubcategory);
     }
     if (urlFilter) {
       setFilterType(urlFilter);
@@ -366,11 +385,19 @@ const Shop = () => {
 
   // Get unique categories from products
   const categories = Array.from(new Set(products.map(p => p.category)));
+  
+  // Get unique subcategories from products
+  const subcategories = Array.from(new Set(products.filter(p => p.subcategory).map(p => p.subcategory)));
 
   // Filter products based on selected category and filter type
   let filteredProducts = category === "all" 
     ? products 
     : products.filter(p => p.category.toLowerCase() === category.toLowerCase());
+
+  // Apply subcategory filter
+  if (subcategory !== "all") {
+    filteredProducts = filteredProducts.filter(p => p.subcategory?.toLowerCase() === subcategory.toLowerCase());
+  }
 
   // Apply special filters (portable, quickSetup)
   if (filterType === "portable") {
@@ -393,6 +420,7 @@ const Shop = () => {
   // Reset filters function
   const handleResetFilters = () => {
     setCategory("all");
+    setSubcategory("all");
     setSortBy("featured");
     setFilterType(null);
     setSearchParams({});
@@ -406,15 +434,17 @@ const Shop = () => {
             <h1 className="text-3xl md:text-4xl font-bold mb-2">
               {filterType === "portable" && "Portable Equipment"}
               {filterType === "quick-setup" && "Quick Setup Equipment"}
-              {!filterType && "Shop Equipment"}
+              {subcategory !== "all" && `${subcategory}`}
+              {!filterType && subcategory === "all" && "Shop Equipment"}
             </h1>
             <p className="text-muted-foreground">
               {filterType === "portable" && "Easy to move, carry, and store fitness gear"}
               {filterType === "quick-setup" && "Fast assembly, start training right away"}
-              {!filterType && "Compact gear for small spaces"}
+              {subcategory !== "all" && "Dumbbells, barbells, and weight plates"}
+              {!filterType && subcategory === "all" && "Compact gear for small spaces"}
             </p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Category" />
@@ -423,6 +453,17 @@ const Shop = () => {
                 <SelectItem value="all">All Items</SelectItem>
                 {categories.map(cat => (
                   <SelectItem key={cat} value={cat.toLowerCase()}>{cat}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={subcategory} onValueChange={setSubcategory}>
+              <SelectTrigger className="w-[140px]">
+                <SelectValue placeholder="Subcategory" />
+              </SelectTrigger>
+              <SelectContent className="bg-popover z-50">
+                <SelectItem value="all">All Types</SelectItem>
+                {subcategories.map(sub => (
+                  <SelectItem key={sub} value={sub?.toLowerCase() || ""}>{sub}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
