@@ -32,7 +32,7 @@ const products = [
   {
     id: "1",
     name: "Compact Folding Treadmill",
-    price: 599,
+    price: 399,
     image: productTreadmill,
     category: "Cardio",
     portable: true,
@@ -106,7 +106,7 @@ const products = [
   {
     id: "9",
     name: "Compact Exercise Bike",
-    price: 449,
+    price: 249,
     image: productExerciseBike,
     category: "Cardio",
     portable: true,
@@ -116,7 +116,7 @@ const products = [
   {
     id: "10",
     name: "Fitness Tracker Watch",
-    price: 129,
+    price: 79,
     image: productFitnessTracker,
     category: "Accessories",
     portable: true,
