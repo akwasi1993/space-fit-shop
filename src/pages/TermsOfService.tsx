@@ -1,17 +1,19 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 const TermsOfService = () => {
+  const navigate = useNavigate();
+
   return (
     <main className="min-h-screen bg-background py-12">
       <div className="container max-w-4xl mx-auto px-4">
-        <Link 
-          to="/" 
+        <button 
+          onClick={() => navigate(-1)}
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to Home
-        </Link>
+          Back
+        </button>
 
         <article className="prose prose-neutral dark:prose-invert max-w-none">
           <h1 className="text-4xl font-bold text-foreground mb-2">Terms of Service</h1>
