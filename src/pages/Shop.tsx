@@ -55,6 +55,14 @@ const Shop = () => {
     filteredProducts = filteredProducts.filter(p => p.quickSetup);
   }
 
+  // Category priority order: Cardio -> Strength -> Recovery -> Accessories
+  const categoryOrder: Record<string, number> = {
+    "Cardio": 1,
+    "Strength": 2,
+    "Recovery": 3,
+    "Accessories": 4,
+  };
+
   // Sort the filtered products
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortBy === "price-low") {
@@ -62,8 +70,13 @@ const Shop = () => {
     } else if (sortBy === "price-high") {
       return b.price - a.price;
     }
-    // Default "featured" - keep original order
-    return 0;
+    // Default "featured" - order by category priority, then by name
+    const orderA = categoryOrder[a.category] ?? 99;
+    const orderB = categoryOrder[b.category] ?? 99;
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+    return a.name.localeCompare(b.name);
   });
 
   // Reset filters function
