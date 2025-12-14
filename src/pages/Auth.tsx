@@ -304,11 +304,11 @@ const Auth = () => {
                     <input type="checkbox" className="mt-1 rounded" required />
                     <span className="text-muted-foreground">
                       I agree to the{" "}
-                      <Link to="/terms-of-service" className="text-primary hover:underline">
+                      <Link to="/terms" className="text-primary hover:underline">
                         Terms of Service
                       </Link>{" "}
                       and{" "}
-                      <Link to="/privacy-policy" className="text-primary hover:underline">
+                      <Link to="/privacy" className="text-primary hover:underline">
                         Privacy Policy
                       </Link>
                     </span>
@@ -364,11 +364,11 @@ const Auth = () => {
 
           <p className="text-center text-sm text-muted-foreground mt-6">
             By signing up, you agree to our{" "}
-            <Link to="/terms-of-service" className="text-primary hover:underline">
+            <Link to="/terms" className="text-primary hover:underline">
               Terms
             </Link>{" "}
             and{" "}
-            <Link to="/privacy-policy" className="text-primary hover:underline">
+            <Link to="/privacy" className="text-primary hover:underline">
               Privacy Policy
             </Link>
           </p>
