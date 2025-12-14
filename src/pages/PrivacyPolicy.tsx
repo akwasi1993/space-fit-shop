@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground">1. Introduction</h2>
             <p className="text-muted-foreground leading-relaxed">
-              HomeFit ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website or use our services.
+              FitOnTheGo ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website or use our services.
             </p>
           </section>
 
@@ -137,7 +137,7 @@ const PrivacyPolicy = () => {
               For privacy-related questions or to exercise your rights, contact us:
             </p>
             <p className="text-foreground mt-2">
-              Email: privacy@homefit.com<br />
+              Email: privacy@fitonthego.com<br />
               Address: 123 Fitness Street, Gym City, GC 12345
             </p>
           </section>

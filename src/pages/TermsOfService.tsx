@@ -20,14 +20,14 @@ const TermsOfService = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground">1. Acceptance of Terms</h2>
             <p className="text-muted-foreground leading-relaxed">
-              By accessing and using HomeFit's website and services, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+              By accessing and using FitOnTheGo's website and services, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
             </p>
           </section>
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground">2. Products and Services</h2>
             <p className="text-muted-foreground leading-relaxed">
-              HomeFit provides fitness equipment, workout programs, and related services for home gym enthusiasts. All products are subject to availability, and we reserve the right to discontinue any product at any time.
+              FitOnTheGo provides fitness equipment, workout programs, and related services for home gym enthusiasts. All products are subject to availability, and we reserve the right to discontinue any product at any time.
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
               <li>Product descriptions and images are for illustrative purposes</li>
@@ -53,7 +53,7 @@ const TermsOfService = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground">4. User-Generated Content</h2>
             <p className="text-muted-foreground leading-relaxed">
-              By submitting content (including gym photos, reviews, and comments) to our platform, you grant HomeFit a non-exclusive, royalty-free license to use, display, and distribute such content. You represent that you own or have the right to share this content.
+              By submitting content (including gym photos, reviews, and comments) to our platform, you grant FitOnTheGo a non-exclusive, royalty-free license to use, display, and distribute such content. You represent that you own or have the right to share this content.
             </p>
           </section>
 
@@ -73,7 +73,7 @@ const TermsOfService = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground">6. Intellectual Property</h2>
             <p className="text-muted-foreground leading-relaxed">
-              All content on this website, including text, graphics, logos, images, and software, is the property of HomeFit and protected by intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written consent.
+              All content on this website, including text, graphics, logos, images, and software, is the property of FitOnTheGo and protected by intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written consent.
             </p>
           </section>
 
@@ -87,7 +87,7 @@ const TermsOfService = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground">8. Limitation of Liability</h2>
             <p className="text-muted-foreground leading-relaxed">
-              HomeFit shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our services. Our total liability shall not exceed the amount paid by you for the specific product or service in question.
+              FitOnTheGo shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our services. Our total liability shall not exceed the amount paid by you for the specific product or service in question.
             </p>
           </section>
 
@@ -104,7 +104,7 @@ const TermsOfService = () => {
               For questions about these Terms of Service, please contact us at:
             </p>
             <p className="text-foreground mt-2">
-              Email: legal@homefit.com<br />
+              Email: legal@fitonthego.com<br />
               Address: 123 Fitness Street, Gym City, GC 12345
             </p>
           </section>
