@@ -28,6 +28,10 @@ import productGripStrengthener from "@/assets/product-grip-strengthener.jpg";
 import productSuspensionTrainer from "@/assets/product-suspension-trainer.jpg";
 import productMedicineBall from "@/assets/product-medicine-ball.jpg";
 import productGymBag from "@/assets/product-gym-bag.jpg";
+import productOlympicBarbell from "@/assets/product-olympic-barbell.jpg";
+import productEzCurlBar from "@/assets/product-ez-curl-bar.jpg";
+import productShortBarbell from "@/assets/product-short-barbell.jpg";
+import productWeightPlates from "@/assets/product-weight-plates.jpg";
 
 // Extended products database
 const products = [
@@ -346,6 +350,136 @@ const products = [
     description: "Spacious gym bag with multiple compartments for organized storage. Water-resistant material with ventilated shoe compartment.",
     features: ["Shoe compartment", "Water-resistant", "Padded shoulder strap", "Multiple pockets"],
     specs: { dimensions: "22\" x 12\" x 10\"", weight: "1.5 lbs", capacity: "40L" }
+  },
+  {
+    id: "25",
+    name: "10lb Dumbbell Pair",
+    price: 39,
+    image: productDumbbells,
+    category: "Strength",
+    portable: true,
+    rating: 4.8,
+    reviews: 234,
+    description: "Classic rubber hex dumbbells perfect for home workouts. Durable construction with ergonomic grip handles.",
+    features: ["Rubber hex design", "Anti-roll", "Chrome handles", "Sold as pair"],
+    specs: { dimensions: "9\" x 4\"", weight: "10 lbs each", material: "Cast Iron/Rubber" }
+  },
+  {
+    id: "26",
+    name: "20lb Dumbbell Pair",
+    price: 69,
+    image: productDumbbells,
+    category: "Strength",
+    portable: true,
+    rating: 4.8,
+    reviews: 312,
+    description: "Versatile 20lb dumbbells ideal for strength training and muscle building. Rubber coating protects floors.",
+    features: ["Rubber hex design", "Anti-roll", "Chrome handles", "Sold as pair"],
+    specs: { dimensions: "11\" x 4.5\"", weight: "20 lbs each", material: "Cast Iron/Rubber" }
+  },
+  {
+    id: "27",
+    name: "30lb Dumbbell Pair",
+    price: 99,
+    image: productDumbbells,
+    category: "Strength",
+    portable: true,
+    rating: 4.7,
+    reviews: 278,
+    description: "Heavy-duty 30lb dumbbells for intermediate to advanced lifters. Perfect for progressive overload training.",
+    features: ["Rubber hex design", "Anti-roll", "Chrome handles", "Sold as pair"],
+    specs: { dimensions: "13\" x 5\"", weight: "30 lbs each", material: "Cast Iron/Rubber" }
+  },
+  {
+    id: "28",
+    name: "50lb Dumbbell Pair",
+    price: 149,
+    image: productDumbbells,
+    category: "Strength",
+    portable: true,
+    rating: 4.9,
+    reviews: 198,
+    description: "Professional-grade 50lb dumbbells for serious strength training. Built to last with premium materials.",
+    features: ["Rubber hex design", "Anti-roll", "Knurled chrome handles", "Sold as pair"],
+    specs: { dimensions: "15\" x 6\"", weight: "50 lbs each", material: "Cast Iron/Rubber" }
+  },
+  {
+    id: "29",
+    name: "Olympic Barbell 45lb",
+    price: 179,
+    image: productOlympicBarbell,
+    category: "Strength",
+    portable: false,
+    rating: 4.9,
+    reviews: 423,
+    description: "Professional 7-foot Olympic barbell with rotating sleeves. Chrome finish with medium knurl for secure grip.",
+    features: ["7 feet long", "Rotating sleeves", "700 lb capacity", "Medium knurl"],
+    specs: { dimensions: "86\" x 2\"", weight: "45 lbs", material: "Chrome Steel" }
+  },
+  {
+    id: "30",
+    name: "EZ Curl Barbell",
+    price: 89,
+    image: productEzCurlBar,
+    category: "Strength",
+    portable: true,
+    rating: 4.8,
+    reviews: 356,
+    description: "Ergonomic curved barbell designed to reduce wrist strain during curls and tricep exercises.",
+    features: ["Ergonomic curves", "Standard sleeve", "Knurled grip", "Includes collars"],
+    specs: { dimensions: "47\" x 1\"", weight: "15 lbs", material: "Chrome Steel" }
+  },
+  {
+    id: "31",
+    name: "Short Barbell 25lb",
+    price: 59,
+    image: productShortBarbell,
+    category: "Strength",
+    portable: true,
+    rating: 4.6,
+    reviews: 245,
+    description: "Compact barbell perfect for home gyms with limited space. Great for rows, presses, and curls.",
+    features: ["Compact design", "Threaded ends", "Knurled grip", "Space-saving"],
+    specs: { dimensions: "60\" x 1\"", weight: "25 lbs", material: "Chrome Steel" }
+  },
+  {
+    id: "32",
+    name: "10lb Weight Plate Pair",
+    price: 45,
+    image: productWeightPlates,
+    category: "Strength",
+    portable: true,
+    rating: 4.7,
+    reviews: 534,
+    description: "Olympic rubber-coated weight plates with center hole for barbells. Protects floors and reduces noise.",
+    features: ["Olympic size", "Rubber coated", "Low bounce", "Sold as pair"],
+    specs: { dimensions: "10\" diameter", weight: "10 lbs each", material: "Cast Iron/Rubber" }
+  },
+  {
+    id: "33",
+    name: "25lb Weight Plate Pair",
+    price: 89,
+    image: productWeightPlates,
+    category: "Strength",
+    portable: true,
+    rating: 4.8,
+    reviews: 412,
+    description: "Heavy-duty 25lb Olympic plates with easy-grip handles. Perfect for building your home gym setup.",
+    features: ["Olympic size", "Rubber coated", "Tri-grip handles", "Sold as pair"],
+    specs: { dimensions: "14\" diameter", weight: "25 lbs each", material: "Cast Iron/Rubber" }
+  },
+  {
+    id: "34",
+    name: "45lb Weight Plate Pair",
+    price: 149,
+    image: productWeightPlates,
+    category: "Strength",
+    portable: false,
+    rating: 4.9,
+    reviews: 378,
+    description: "Standard 45lb Olympic plates for serious lifters. Precision-calibrated for accurate weight.",
+    features: ["Olympic size", "Rubber coated", "Tri-grip handles", "Sold as pair"],
+    specs: { dimensions: "17.5\" diameter", weight: "45 lbs each", material: "Cast Iron/Rubber" }
   }
 ];
 
