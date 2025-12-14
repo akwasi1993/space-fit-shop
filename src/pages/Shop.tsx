@@ -118,17 +118,6 @@ const Shop = () => {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={subcategory} onValueChange={setSubcategory}>
-              <SelectTrigger className="w-[140px]">
-                <SelectValue placeholder="Subcategory" />
-              </SelectTrigger>
-              <SelectContent className="bg-popover z-50">
-                <SelectItem value="all">All Types</SelectItem>
-                {subcategories.map(sub => (
-                  <SelectItem key={sub} value={sub?.toLowerCase() || ""}>{sub}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Sort by" />
