@@ -118,6 +118,21 @@ const OrderHistory = () => {
 
   const handleCancelOrder = async (orderId: string) => {
     try {
+      // Find the order to get its items
+      const order = orders.find((o) => o.id === orderId);
+      if (!order) throw new Error("Order not found");
+
+      // Restore stock for each item
+      for (const item of order.order_items) {
+        if (item.product_id) {
+          await supabase.rpc("increase_product_stock", {
+            product_id: item.product_id,
+            quantity: item.quantity,
+          });
+        }
+      }
+
+      // Update order status
       const { error } = await supabase
         .from("orders")
         .update({ status: "cancelled" })
@@ -130,7 +145,7 @@ const OrderHistory = () => {
           order.id === orderId ? { ...order, status: "cancelled" } : order
         )
       );
-      toast.success("Order cancelled successfully");
+      toast.success("Order cancelled and stock restored");
     } catch (error) {
       console.error("Error cancelling order:", error);
       toast.error("Failed to cancel order");

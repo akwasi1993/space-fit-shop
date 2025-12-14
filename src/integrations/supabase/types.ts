@@ -397,6 +397,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      increase_product_stock: {
+        Args: { product_id: string; quantity: number }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "creator" | "user"
