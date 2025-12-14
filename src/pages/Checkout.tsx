@@ -74,20 +74,27 @@ const Checkout = () => {
 
     if (orderError) throw orderError;
 
-    // Create order items
-    const orderItems = items.map((item) => ({
-      order_id: order.id,
-      product_id: item.id,
-      product_name: item.name,
-      price_at_purchase: Math.round(item.price * 100), // Store in cents
-      quantity: item.quantity,
-    }));
+    // Create order items - insert one by one to handle potential UUID validation issues
+    for (const item of items) {
+      const isValidUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(item.id);
+      
+      const orderItem = {
+        order_id: order.id,
+        product_id: isValidUUID ? item.id : null, // Only use if valid UUID
+        product_name: item.name,
+        price_at_purchase: Math.round(item.price * 100), // Store in cents
+        quantity: item.quantity,
+      };
 
-    const { error: itemsError } = await supabase
-      .from("order_items")
-      .insert(orderItems);
+      const { error: itemError } = await supabase
+        .from("order_items")
+        .insert(orderItem);
 
-    if (itemsError) throw itemsError;
+      if (itemError) {
+        console.error("Error inserting order item:", itemError, orderItem);
+        throw itemError;
+      }
+    }
 
     return order.id;
   };
