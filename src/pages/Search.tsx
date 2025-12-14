@@ -3,10 +3,11 @@ import { Search as SearchIcon, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { useProducts } from "@/hooks/use-products";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const { data: products = [], isLoading } = useProducts();
 
   const filteredProducts = searchQuery.trim()
     ? products.filter((product) =>
@@ -42,7 +43,11 @@ const Search = () => {
           </div>
         </div>
 
-        {searchQuery ? (
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Loading products...</p>
+          </div>
+        ) : searchQuery ? (
           <div>
             <p className="text-muted-foreground mb-6">
               {filteredProducts.length > 0 
