@@ -78,6 +78,25 @@ const Auth = () => {
       return;
     }
 
+    // Validate date of birth is provided
+    if (!signUpDob) {
+      toast.error("Please select your date of birth!");
+      return;
+    }
+
+    // Validate user is at least 18 years old
+    const today = new Date();
+    const birthDate = new Date(signUpDob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    if (age < 18) {
+      toast.error("You must be at least 18 years old to sign up.");
+      return;
+    }
+
     setIsLoading(true);
     
     const redirectUrl = `${window.location.origin}/`;
