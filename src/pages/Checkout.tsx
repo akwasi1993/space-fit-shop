@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { CreditCard, Lock, CheckCircle, Package, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -11,18 +11,86 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "@/hooks/use-cart";
 import { MockPayPalButton } from "@/components/MockPayPalButton";
 import { useUpdateStock } from "@/hooks/use-products";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
 
 const Checkout = () => {
   const navigate = useNavigate();
   const { items, totalPrice, clearCart } = useCart();
+  const { user } = useAuth();
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [orderComplete, setOrderComplete] = useState(false);
   const [transactionId, setTransactionId] = useState("");
+  const [orderId, setOrderId] = useState("");
   const updateStock = useUpdateStock();
+  
+  // Form refs for collecting shipping info
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const addressRef = useRef<HTMLInputElement>(null);
+  const cityRef = useRef<HTMLInputElement>(null);
+  const stateRef = useRef<HTMLInputElement>(null);
+  const zipRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
 
   const subtotal = totalPrice;
   const tax = subtotal * 0.08;
   const total = subtotal + tax;
+
+  const getShippingInfo = () => ({
+    firstName: firstNameRef.current?.value || "",
+    lastName: lastNameRef.current?.value || "",
+    email: emailRef.current?.value || "",
+    address: addressRef.current?.value || "",
+    city: cityRef.current?.value || "",
+    state: stateRef.current?.value || "",
+    zip: zipRef.current?.value || "",
+    phone: phoneRef.current?.value || "",
+  });
+
+  const saveOrderToDatabase = async (txId: string) => {
+    const shipping = getShippingInfo();
+    
+    // Create the order
+    const { data: order, error: orderError } = await supabase
+      .from("orders")
+      .insert({
+        user_id: user?.id || null,
+        status: "pending",
+        total_amount: Math.round(total * 100), // Store in cents
+        customer_email: shipping.email,
+        customer_name: `${shipping.firstName} ${shipping.lastName}`,
+        shipping_address: {
+          street: shipping.address,
+          city: shipping.city,
+          state: shipping.state,
+          zip: shipping.zip,
+          phone: shipping.phone,
+        },
+      })
+      .select()
+      .single();
+
+    if (orderError) throw orderError;
+
+    // Create order items
+    const orderItems = items.map((item) => ({
+      order_id: order.id,
+      product_id: item.id,
+      product_name: item.name,
+      price_at_purchase: Math.round(item.price * 100), // Store in cents
+      quantity: item.quantity,
+    }));
+
+    const { error: itemsError } = await supabase
+      .from("order_items")
+      .insert(orderItems);
+
+    if (itemsError) throw itemsError;
+
+    return order.id;
+  };
 
   const decreaseStockForItems = async () => {
     const updates = items.map(item => ({
@@ -35,9 +103,16 @@ const Checkout = () => {
   const handleCardSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await decreaseStockForItems();
       const mockTransactionId = `CARD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+      
+      // Save order to database
+      const newOrderId = await saveOrderToDatabase(mockTransactionId);
+      
+      // Decrease stock
+      await decreaseStockForItems();
+      
       setTransactionId(mockTransactionId);
+      setOrderId(newOrderId);
       setOrderComplete(true);
       clearCart();
       toast.success("Order placed successfully!");
@@ -49,8 +124,14 @@ const Checkout = () => {
 
   const handlePayPalSuccess = async (txId: string) => {
     try {
+      // Save order to database
+      const newOrderId = await saveOrderToDatabase(txId);
+      
+      // Decrease stock
       await decreaseStockForItems();
+      
       setTransactionId(txId);
+      setOrderId(newOrderId);
       setOrderComplete(true);
       clearCart();
       toast.success("PayPal payment successful!");
@@ -71,6 +152,11 @@ const Checkout = () => {
             <p className="text-muted-foreground mb-6">
               Thank you for your purchase. Your order has been placed successfully.
             </p>
+
+            <div className="bg-secondary/50 rounded-lg p-4 mb-4">
+              <p className="text-sm text-muted-foreground mb-1">Order ID</p>
+              <p className="font-mono font-semibold text-sm">{orderId}</p>
+            </div>
 
             <div className="bg-secondary/50 rounded-lg p-4 mb-6">
               <p className="text-sm text-muted-foreground mb-1">Transaction ID</p>
@@ -142,35 +228,35 @@ const Checkout = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="firstName">First Name</Label>
-                  <Input id="firstName" placeholder="John" required />
+                  <Input ref={firstNameRef} id="firstName" placeholder="John" required />
                 </div>
                 <div>
                   <Label htmlFor="lastName">Last Name</Label>
-                  <Input id="lastName" placeholder="Doe" required />
+                  <Input ref={lastNameRef} id="lastName" placeholder="Doe" required />
                 </div>
                 <div className="md:col-span-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="john@example.com" required />
+                  <Input ref={emailRef} id="email" type="email" placeholder="john@example.com" required />
                 </div>
                 <div className="md:col-span-2">
                   <Label htmlFor="address">Street Address</Label>
-                  <Input id="address" placeholder="123 Main St" required />
+                  <Input ref={addressRef} id="address" placeholder="123 Main St" required />
                 </div>
                 <div>
                   <Label htmlFor="city">City</Label>
-                  <Input id="city" placeholder="New York" required />
+                  <Input ref={cityRef} id="city" placeholder="New York" required />
                 </div>
                 <div>
                   <Label htmlFor="state">State</Label>
-                  <Input id="state" placeholder="NY" required />
+                  <Input ref={stateRef} id="state" placeholder="NY" required />
                 </div>
                 <div>
                   <Label htmlFor="zip">ZIP Code</Label>
-                  <Input id="zip" placeholder="10001" required />
+                  <Input ref={zipRef} id="zip" placeholder="10001" required />
                 </div>
                 <div>
                   <Label htmlFor="phone">Phone</Label>
-                  <Input id="phone" type="tel" placeholder="(555) 123-4567" required />
+                  <Input ref={phoneRef} id="phone" type="tel" placeholder="(555) 123-4567" required />
                 </div>
               </div>
             </Card>
