@@ -96,7 +96,7 @@ const fitnessBundles = [
       { id: "6", name: "Textured Foam Roller", price: 39 },
       { id: "3", name: "Pro Massage Gun", price: 99 },
     ],
-    totalPrice: 217,
+    totalPrice: 187,
     savings: 30,
   },
 ];
