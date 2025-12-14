@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Mail, Lock, User, ArrowLeft } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
+import { Mail, Lock, User, ArrowLeft, Calendar } from "lucide-react";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { cn } from "@/lib/utils";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -18,6 +22,7 @@ const Auth = () => {
   const [signUpPassword, setSignUpPassword] = useState("");
   const [signUpConfirmPassword, setSignUpConfirmPassword] = useState("");
   const [signUpName, setSignUpName] = useState("");
+  const [signUpDob, setSignUpDob] = useState<Date | undefined>(undefined);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -232,6 +237,38 @@ const Auth = () => {
                     </div>
                   </div>
                   <div>
+                    <Label>Date of Birth</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal pl-10 relative",
+                            !signUpDob && "text-muted-foreground"
+                          )}
+                        >
+                          <Calendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                          {signUpDob ? format(signUpDob, "PPP") : <span>Select your date of birth</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <CalendarComponent
+                          mode="single"
+                          selected={signUpDob}
+                          onSelect={setSignUpDob}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                          className={cn("p-3 pointer-events-auto")}
+                          captionLayout="dropdown-buttons"
+                          fromYear={1900}
+                          toYear={new Date().getFullYear()}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <div>
                     <Label htmlFor="signup-password">Password</Label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -266,7 +303,14 @@ const Auth = () => {
                   <div className="flex items-start gap-2 text-sm">
                     <input type="checkbox" className="mt-1 rounded" required />
                     <span className="text-muted-foreground">
-                      I agree to the Terms of Service and Privacy Policy
+                      I agree to the{" "}
+                      <Link to="/terms-of-service" className="text-primary hover:underline">
+                        Terms of Service
+                      </Link>{" "}
+                      and{" "}
+                      <Link to="/privacy-policy" className="text-primary hover:underline">
+                        Privacy Policy
+                      </Link>
                     </span>
                   </div>
                   <Button type="submit" className="w-full" disabled={isLoading}>
@@ -319,7 +363,14 @@ const Auth = () => {
           </Card>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            By signing up, you agree to our Terms and Privacy Policy
+            By signing up, you agree to our{" "}
+            <Link to="/terms-of-service" className="text-primary hover:underline">
+              Terms
+            </Link>{" "}
+            and{" "}
+            <Link to="/privacy-policy" className="text-primary hover:underline">
+              Privacy Policy
+            </Link>
           </p>
         </div>
       </div>
