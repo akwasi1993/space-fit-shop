@@ -1,4 +1,4 @@
-import { User, Package, Heart, Settings } from "lucide-react";
+import { User, Package } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -16,7 +16,10 @@ const Account = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="p-6 hover:shadow-elevated transition-smooth cursor-pointer">
+            <Card 
+              className="p-6 hover:shadow-elevated transition-smooth cursor-pointer"
+              onClick={() => navigate("/profile")}
+            >
               <User className="h-10 w-10 text-primary mb-4" />
               <h3 className="text-xl font-semibold mb-2">Profile</h3>
               <p className="text-muted-foreground mb-4">
@@ -36,39 +39,7 @@ const Account = () => {
               </p>
               <Button variant="outline">View Orders</Button>
             </Card>
-
-            <Card className="p-6 hover:shadow-elevated transition-smooth cursor-pointer">
-              <Heart className="h-10 w-10 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Saved Items</h3>
-              <p className="text-muted-foreground mb-4">
-                Access your wishlist and favorites
-              </p>
-              <Button variant="outline">View Saved</Button>
-            </Card>
-
-            <Card className="p-6 hover:shadow-elevated transition-smooth cursor-pointer">
-              <Settings className="h-10 w-10 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Settings</h3>
-              <p className="text-muted-foreground mb-4">
-                Manage notifications and preferences
-              </p>
-              <Button variant="outline">Open Settings</Button>
-            </Card>
           </div>
-
-          <Card className="mt-8 p-8 bg-gradient-primary text-primary-foreground">
-            <h2 className="text-2xl font-bold mb-3">Not signed in?</h2>
-            <p className="mb-6 opacity-90">
-              Create an account to track orders and save your favorites
-            </p>
-            <Button 
-              size="lg" 
-              variant="secondary"
-              onClick={() => navigate("/auth")}
-            >
-              Sign In / Create Account
-            </Button>
-          </Card>
         </div>
       </div>
     </div>
