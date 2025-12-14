@@ -49,48 +49,127 @@ const BundleBuilder = () => {
       id: "budget",
       question: "What's your budget?",
       options: [
-        { value: "50", label: "Under $50 (Starter)" },
-        { value: "100", label: "$50-$100 (Basic)" },
-        { value: "150", label: "$100-$150 (Complete)" },
-        { value: "200", label: "$150+ (Premium)" }
+        { value: "100", label: "Under $100 (Starter)" },
+        { value: "200", label: "$100-$200 (Basic)" },
+        { value: "400", label: "$200-$400 (Complete)" },
+        { value: "600", label: "$400+ (Premium)" }
       ]
     }
   ];
 
   const getRecommendedProducts = () => {
+    const budget = parseInt(answers.budget);
     const products: Array<{ id: string; name: string; price: number; image: string }> = [];
 
-    // Base recommendations on goal
-    if (answers.goal === "strength") {
-      products.push(
-        { id: "2", name: "Adjustable Dumbbell Set", price: 299, image: productDumbbells },
-        { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands }
-      );
-    } else if (answers.goal === "cardio") {
-      products.push(
-        { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
-        { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands }
-      );
-    } else if (answers.goal === "flexibility") {
-      products.push(
-        { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
-        { id: "6", name: "Textured Foam Roller", price: 39, image: productFoamRoller }
-      );
-    } else if (answers.goal === "weight-loss") {
-      products.push(
-        { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
-        { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
-        { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat }
-      );
+    // Starter tier (under $100)
+    if (budget <= 100) {
+      if (answers.goal === "strength") {
+        products.push(
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+          { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope }
+        );
+      } else if (answers.goal === "cardio") {
+        products.push(
+          { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands }
+        );
+      } else if (answers.goal === "flexibility") {
+        products.push(
+          { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat }
+        );
+      } else if (answers.goal === "weight-loss") {
+        products.push(
+          { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands }
+        );
+      }
     }
-
-    // Add budget-appropriate items
-    const budget = parseInt(answers.budget);
-    if (budget >= 100 && answers.goal === "strength") {
-      products.push({ id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell });
+    // Basic tier ($100-$200)
+    else if (budget <= 200) {
+      if (answers.goal === "strength") {
+        products.push(
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+          { id: "8", name: "Doorway Pull-Up Bar", price: 59, image: productPullupBar },
+          { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat }
+        );
+      } else if (answers.goal === "cardio") {
+        products.push(
+          { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+          { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat }
+        );
+      } else if (answers.goal === "flexibility") {
+        products.push(
+          { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
+          { id: "6", name: "Textured Foam Roller", price: 39, image: productFoamRoller },
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands }
+        );
+      } else if (answers.goal === "weight-loss") {
+        products.push(
+          { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+          { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat }
+        );
+      }
     }
-    if (budget >= 150 && answers.space !== "minimal") {
-      products.push({ id: "8", name: "Doorway Pull-Up Bar", price: 59, image: productPullupBar });
+    // Complete tier ($200-$400)
+    else if (budget <= 400) {
+      if (answers.goal === "strength") {
+        products.push(
+          { id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell },
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+          { id: "8", name: "Doorway Pull-Up Bar", price: 59, image: productPullupBar }
+        );
+      } else if (answers.goal === "cardio") {
+        products.push(
+          { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+          { id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell }
+        );
+      } else if (answers.goal === "flexibility") {
+        products.push(
+          { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
+          { id: "6", name: "Textured Foam Roller", price: 39, image: productFoamRoller },
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+          { id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell }
+        );
+      } else if (answers.goal === "weight-loss") {
+        products.push(
+          { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+          { id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell }
+        );
+      }
+    }
+    // Premium tier ($400+)
+    else {
+      if (answers.goal === "strength") {
+        products.push(
+          { id: "2", name: "Adjustable Dumbbell Set", price: 299, image: productDumbbells },
+          { id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell },
+          { id: "8", name: "Doorway Pull-Up Bar", price: 59, image: productPullupBar }
+        );
+      } else if (answers.goal === "cardio") {
+        products.push(
+          { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+          { id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell },
+          { id: "2", name: "Adjustable Dumbbell Set", price: 299, image: productDumbbells }
+        );
+      } else if (answers.goal === "flexibility") {
+        products.push(
+          { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
+          { id: "6", name: "Textured Foam Roller", price: 39, image: productFoamRoller },
+          { id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell },
+          { id: "2", name: "Adjustable Dumbbell Set", price: 299, image: productDumbbells }
+        );
+      } else if (answers.goal === "weight-loss") {
+        products.push(
+          { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+          { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+          { id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell },
+          { id: "2", name: "Adjustable Dumbbell Set", price: 299, image: productDumbbells }
+        );
+      }
     }
 
     return products;
