@@ -5,7 +5,8 @@ import { Card } from "@/components/ui/card";
 import ProductCard from "@/components/ProductCard";
 import BundleCard from "@/components/BundleCard";
 import BundleBuilder from "@/components/BundleBuilder";
-import heroFitness from "@/assets/hero-fitness.jpg";
+// Hero image is in public folder for LCP optimization
+const heroFitness = "/images/hero-fitness.jpg";
 import productTreadmill from "@/assets/product-treadmill.jpg";
 import productDumbbells from "@/assets/product-dumbbells.jpg";
 import productMassageGun from "@/assets/product-massage-gun.jpg";
