@@ -9,6 +9,7 @@ interface BundleItem {
   id: string;
   name: string;
   price: number;
+  image: string;
 }
 
 interface BundleCardProps {
@@ -30,7 +31,7 @@ const BundleCard = ({ id, name, description, targetCustomer, items, totalPrice, 
         id: item.id,
         name: item.name,
         price: item.price,
-        image: "",
+        image: item.image,
         category: "Bundle"
       });
     });
