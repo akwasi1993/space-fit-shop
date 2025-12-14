@@ -27,6 +27,10 @@ import productGripStrengthener from "@/assets/product-grip-strengthener.jpg";
 import productSuspensionTrainer from "@/assets/product-suspension-trainer.jpg";
 import productMedicineBall from "@/assets/product-medicine-ball.jpg";
 import productGymBag from "@/assets/product-gym-bag.jpg";
+import productOlympicBarbell from "@/assets/product-olympic-barbell.jpg";
+import productEzCurlBar from "@/assets/product-ez-curl-bar.jpg";
+import productShortBarbell from "@/assets/product-short-barbell.jpg";
+import productWeightPlates from "@/assets/product-weight-plates.jpg";
 
 const products = [
   {
@@ -289,7 +293,7 @@ const products = [
     id: "29",
     name: "Olympic Barbell 45lb",
     price: 179,
-    image: productKettlebell,
+    image: productOlympicBarbell,
     category: "Strength",
     portable: false,
     quickSetup: true,
@@ -298,7 +302,7 @@ const products = [
     id: "30",
     name: "EZ Curl Barbell",
     price: 89,
-    image: productKettlebell,
+    image: productEzCurlBar,
     category: "Strength",
     portable: true,
     quickSetup: true,
@@ -307,7 +311,7 @@ const products = [
     id: "31",
     name: "Short Barbell 25lb",
     price: 59,
-    image: productKettlebell,
+    image: productShortBarbell,
     category: "Strength",
     portable: true,
     quickSetup: true,
@@ -316,7 +320,7 @@ const products = [
     id: "32",
     name: "10lb Weight Plate Pair",
     price: 45,
-    image: productAnkleWeights,
+    image: productWeightPlates,
     category: "Strength",
     portable: true,
     quickSetup: true,
@@ -325,7 +329,7 @@ const products = [
     id: "33",
     name: "25lb Weight Plate Pair",
     price: 89,
-    image: productAnkleWeights,
+    image: productWeightPlates,
     category: "Strength",
     portable: true,
     quickSetup: true,
@@ -334,7 +338,7 @@ const products = [
     id: "34",
     name: "45lb Weight Plate Pair",
     price: 149,
-    image: productAnkleWeights,
+    image: productWeightPlates,
     category: "Strength",
     portable: false,
     quickSetup: true,
