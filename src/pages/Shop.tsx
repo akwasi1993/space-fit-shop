@@ -4,7 +4,7 @@ import { Filter } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { products } from "@/data/products";
+import { useProducts } from "@/hooks/use-products";
 
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -12,6 +12,8 @@ const Shop = () => {
   const [subcategory, setSubcategory] = useState("all");
   const [sortBy, setSortBy] = useState("featured");
   const [filterType, setFilterType] = useState<string | null>(null);
+  
+  const { data: products = [], isLoading } = useProducts();
 
   // Initialize filters from URL params
   useEffect(() => {
@@ -136,17 +138,23 @@ const Shop = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {sortedProducts.length > 0 ? (
-            sortedProducts.map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))
-          ) : (
-            <div className="col-span-full text-center py-12">
-              <p className="text-muted-foreground">No products found in this category.</p>
-            </div>
-          )}
-        </div>
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Loading products...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {sortedProducts.length > 0 ? (
+              sortedProducts.map((product) => (
+                <ProductCard key={product.id} {...product} />
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <p className="text-muted-foreground">No products found in this category.</p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
