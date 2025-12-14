@@ -151,6 +151,7 @@ export type Database = {
           price: number
           quick_setup: boolean | null
           quiet: boolean | null
+          stock: number
           subcategory: string | null
           updated_at: string
         }
@@ -164,6 +165,7 @@ export type Database = {
           price: number
           quick_setup?: boolean | null
           quiet?: boolean | null
+          stock?: number
           subcategory?: string | null
           updated_at?: string
         }
@@ -177,6 +179,7 @@ export type Database = {
           price?: number
           quick_setup?: boolean | null
           quiet?: boolean | null
+          stock?: number
           subcategory?: string | null
           updated_at?: string
         }
@@ -302,6 +305,10 @@ export type Database = {
       }
     }
     Functions: {
+      decrease_product_stock: {
+        Args: { product_id: string; quantity: number }
+        Returns: undefined
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

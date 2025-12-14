@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/hooks/use-cart";
 import { MockPayPalButton } from "@/components/MockPayPalButton";
+import { useUpdateStock } from "@/hooks/use-products";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -17,25 +18,46 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [orderComplete, setOrderComplete] = useState(false);
   const [transactionId, setTransactionId] = useState("");
+  const updateStock = useUpdateStock();
 
   const subtotal = totalPrice;
   const tax = subtotal * 0.08;
   const total = subtotal + tax;
 
-  const handleCardSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const mockTransactionId = `CARD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-    setTransactionId(mockTransactionId);
-    setOrderComplete(true);
-    clearCart();
-    toast.success("Order placed successfully!");
+  const decreaseStockForItems = async () => {
+    const updates = items.map(item => ({
+      id: item.id,
+      quantity: item.quantity,
+    }));
+    await updateStock.mutateAsync(updates);
   };
 
-  const handlePayPalSuccess = (txId: string) => {
-    setTransactionId(txId);
-    setOrderComplete(true);
-    clearCart();
-    toast.success("PayPal payment successful!");
+  const handleCardSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await decreaseStockForItems();
+      const mockTransactionId = `CARD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+      setTransactionId(mockTransactionId);
+      setOrderComplete(true);
+      clearCart();
+      toast.success("Order placed successfully!");
+    } catch (error) {
+      console.error("Error processing order:", error);
+      toast.error("Failed to process order. Please try again.");
+    }
+  };
+
+  const handlePayPalSuccess = async (txId: string) => {
+    try {
+      await decreaseStockForItems();
+      setTransactionId(txId);
+      setOrderComplete(true);
+      clearCart();
+      toast.success("PayPal payment successful!");
+    } catch (error) {
+      console.error("Error processing order:", error);
+      toast.error("Failed to process order. Please try again.");
+    }
   };
 
   // Order Confirmation Screen
