@@ -25,6 +25,7 @@ const Search = lazy(() => import("./pages/Search"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Account = lazy(() => import("./pages/Account"));
+const OrderHistory = lazy(() => import("./pages/OrderHistory"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Profile = lazy(() => import("./pages/Profile"));
 const FreeWorkout = lazy(() => import("./pages/FreeWorkout"));
@@ -73,6 +74,7 @@ const App = () => (
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/account" element={<Account />} />
+                    <Route path="/orders" element={<OrderHistory />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/free-workout" element={<FreeWorkout />} />

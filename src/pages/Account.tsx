@@ -25,7 +25,10 @@ const Account = () => {
               <Button variant="outline">Edit Profile</Button>
             </Card>
 
-            <Card className="p-6 hover:shadow-elevated transition-smooth cursor-pointer">
+            <Card 
+              className="p-6 hover:shadow-elevated transition-smooth cursor-pointer"
+              onClick={() => navigate("/orders")}
+            >
               <Package className="h-10 w-10 text-primary mb-4" />
               <h3 className="text-xl font-semibold mb-2">Orders</h3>
               <p className="text-muted-foreground mb-4">
