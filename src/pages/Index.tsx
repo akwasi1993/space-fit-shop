@@ -111,6 +111,7 @@ const Index = () => {
             src={heroFitness}
             alt="Compact fitness equipment"
             className="w-full h-full object-cover"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-transparent" />
         </div>
