@@ -51,7 +51,7 @@ const products = [
   {
     id: "3",
     name: "Pro Massage Gun",
-    price: 149,
+    price: 99,
     image: productMassageGun,
     category: "Recovery",
     portable: true,
@@ -88,7 +88,7 @@ const products = [
   {
     id: "7",
     name: "Adjustable Kettlebell",
-    price: 179,
+    price: 129,
     image: productKettlebell,
     category: "Strength",
     portable: true,
