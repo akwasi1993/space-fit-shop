@@ -9,6 +9,12 @@ import heroFitness from "@/assets/hero-fitness.jpg";
 import productTreadmill from "@/assets/product-treadmill.jpg";
 import productDumbbells from "@/assets/product-dumbbells.jpg";
 import productMassageGun from "@/assets/product-massage-gun.jpg";
+import productYogaMat from "@/assets/product-yoga-mat.jpg";
+import productResistanceBands from "@/assets/product-resistance-bands.jpg";
+import productFoamRoller from "@/assets/product-foam-roller.jpg";
+import productKettlebell from "@/assets/product-kettlebell.jpg";
+import productFitnessTracker from "@/assets/product-fitness-tracker.jpg";
+import productJumpRope from "@/assets/product-jump-rope.jpg";
 import galleryApartment from "@/assets/gallery-apartment-gym.jpg";
 import galleryGarage from "@/assets/gallery-garage-gym.jpg";
 import galleryBasement from "@/assets/gallery-basement-gym.jpg";
@@ -52,9 +58,9 @@ const fitnessBundles = [
     description: "Everything you need to start your fitness journey at home. These essentials provide a solid foundation for basic exercises and recovery.",
     targetCustomer: "Complete beginners starting their fitness journey",
     items: [
-      { id: "4", name: "Premium Yoga Mat", price: 79 },
-      { id: "5", name: "Resistance Band Set", price: 49 },
-      { id: "11", name: "Speed Jump Rope", price: 29 },
+      { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
+      { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+      { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
     ],
     totalPrice: 139,
     savings: 18,
@@ -65,10 +71,10 @@ const fitnessBundles = [
     description: "Cardio-focused equipment perfect for burning calories and improving endurance. Combine with recovery tools to keep you going strong.",
     targetCustomer: "Those focused on weight loss and cardio training",
     items: [
-      { id: "11", name: "Speed Jump Rope", price: 29 },
-      { id: "5", name: "Resistance Band Set", price: 49 },
-      { id: "4", name: "Premium Yoga Mat", price: 79 },
-      { id: "10", name: "Fitness Tracker Watch", price: 79 },
+      { id: "11", name: "Speed Jump Rope", price: 29, image: productJumpRope },
+      { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
+      { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
+      { id: "10", name: "Fitness Tracker Watch", price: 79, image: productFitnessTracker },
     ],
     totalPrice: 199,
     savings: 37,
@@ -79,9 +85,9 @@ const fitnessBundles = [
     description: "Build serious muscle with adjustable weights and versatile equipment. Perfect for progressive overload training in small spaces.",
     targetCustomer: "Intermediate users focused on building strength",
     items: [
-      { id: "2", name: "Adjustable Dumbbell Set", price: 299 },
-      { id: "7", name: "Adjustable Kettlebell", price: 179 },
-      { id: "5", name: "Resistance Band Set", price: 49 },
+      { id: "2", name: "Adjustable Dumbbell Set", price: 299, image: productDumbbells },
+      { id: "7", name: "Adjustable Kettlebell", price: 179, image: productKettlebell },
+      { id: "5", name: "Resistance Band Set", price: 49, image: productResistanceBands },
     ],
     totalPrice: 475,
     savings: 52,
@@ -92,9 +98,9 @@ const fitnessBundles = [
     description: "Focus on flexibility, mobility, and muscle recovery. Ideal for active recovery days or complementing intense workout routines.",
     targetCustomer: "Athletes and active individuals prioritizing recovery",
     items: [
-      { id: "4", name: "Premium Yoga Mat", price: 79 },
-      { id: "6", name: "Textured Foam Roller", price: 39 },
-      { id: "3", name: "Pro Massage Gun", price: 99 },
+      { id: "4", name: "Premium Yoga Mat", price: 79, image: productYogaMat },
+      { id: "6", name: "Textured Foam Roller", price: 39, image: productFoamRoller },
+      { id: "3", name: "Pro Massage Gun", price: 99, image: productMassageGun },
     ],
     totalPrice: 187,
     savings: 30,
