@@ -100,11 +100,18 @@ const Checkout = () => {
   };
 
   const decreaseStockForItems = async () => {
-    const updates = items.map(item => ({
-      id: item.id,
-      quantity: item.quantity,
-    }));
-    await updateStock.mutateAsync(updates);
+    // Only update stock for items with valid UUIDs (not bundle items)
+    const validUUIDPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const updates = items
+      .filter(item => validUUIDPattern.test(item.id))
+      .map(item => ({
+        id: item.id,
+        quantity: item.quantity,
+      }));
+    
+    if (updates.length > 0) {
+      await updateStock.mutateAsync(updates);
+    }
   };
 
   const handleCardSubmit = async (e: React.FormEvent) => {
